@@ -1,0 +1,48 @@
+{
+  "name": "projector-app-store",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/team-spaceship/app-store",
+  "author": "Team Spaceship",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-runtime": "^6.26.0",
+    "babel-watch": "^2.0.7",
+    "body-parser": "^1.17.2",
+    "colors": "^1.1.2",
+    "connect-mongo": "^2.0.0",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "mongoose": "^4.12.6",
+    "morgan": "^1.9.0"
+  },
+  "scripts": {
+    "start": "babel-watch src/wrapper.js",
+    "heroku-postbuild": "npm run build",
+    "build": "babel src --out-dir lib --copy-files",
+    "lint": "eslint src",
+    "test": "nyc tape tests/unit/*.js | tap-nyc",
+    "coverage": "nyc report",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.3.0",
+    "nyc": "^11.1.0",
+    "tap-nyc": "^1.0.3",
+    "tape": "^4.8.0"
+  }
+}
