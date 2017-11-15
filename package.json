@@ -19,10 +19,13 @@
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "mongoose": "^4.12.6",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "ttab": "^0.6.1"
   },
   "scripts": {
+    "all": "yarn run frontend && yarn start",
     "start": "babel-watch src/wrapper.js",
+    "frontend": "cd react-ui && ttab yarn start",
     "heroku-postbuild": "npm run build",
     "build": "babel src --out-dir lib --copy-files",
     "lint": "eslint src",
