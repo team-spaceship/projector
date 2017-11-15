@@ -9,7 +9,6 @@ class AppCard extends Component {
   
   render() {
     const { app } = this.props;
-    console.log(app._id);
     return (
       <div key={app._id} className="app--card">
         <div className="app--card-header">

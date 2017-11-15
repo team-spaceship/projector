@@ -29,7 +29,6 @@ class Overview extends Component {
   }
 
   async searchApps(query) {
-    console.log("Searching....");
     const apps = await this.AppService.searchApps(query);
     
     this.setState({

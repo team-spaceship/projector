@@ -1,6 +1,7 @@
 export default class AppService {
   getApps() {
-    return fetch(`${process.env.REACT_APP_STORE_API}/apps`).then((response) => {
+    // ${process.env.REACT_APP_STORE_API} werkt nog steeds niet bij mij (Sven).  Undefined.
+    return fetch(`http://localhost:3002/v1/apps`).then((response) => {
       return response.json();
     }).then((json) => {
       if (json.error === 404) {
@@ -14,9 +15,8 @@ export default class AppService {
   }
 
   searchApps(query) {
-    // console.log(process.env.MONGODB_URI); env variabelen zijn allemaal undefined.
-    // Poort nummer veranderen naar de poort waarop jij de node js server hebt draaien van het "App Store" project.
-    return fetch(`${process.env.REACT_APP_STORE_API}/apps?name=` + query).then((response) => {
+    // ${process.env.REACT_APP_STORE_API} werkt nog steeds niet bij mij (Sven).  Undefined.
+    return fetch(`http://localhost:3002/v1/apps?name=` + query).then((response) => {
       return response.json();
     }).then((json) => {
       if (json.error === 404) {
