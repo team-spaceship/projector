@@ -9,9 +9,9 @@ class AppCard extends Component {
   
   render() {
     const { app } = this.props;
-
+    console.log(app._id);
     return (
-      <div key={app.id}>
+      <div key={app._id} className="app--card">
         <div className="app--card-header">
           <h3>{app.name}</h3>
         </div>
@@ -25,7 +25,7 @@ class AppCard extends Component {
 
 AppCard.propTypes = {
   app: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

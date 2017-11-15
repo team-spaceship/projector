@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AppService from '../../services/appService';
 import AppCard from '../app-card/AppCard';
+import SearchBar from '../search/SearchBar';
+import './Overview.css';
 
 class Overview extends Component {
   constructor(props) {
@@ -11,6 +13,9 @@ class Overview extends Component {
       apps: [],
     };
     
+    this.searchApps = this.searchApps.bind(this);
+
+
     // Retrieve all apps.
     this.getApps();
   }
@@ -22,13 +27,22 @@ class Overview extends Component {
       apps,
     });
   }
+
+  async searchApps(query) {
+    console.log("Searching....");
+    const apps = await this.AppService.searchApps(query);
+    
+    this.setState({
+      apps,
+    });
+  }
   
   renderApps(apps) {
     if (apps.length > 0) {
       return apps.map(app => (
         <AppCard key={app.id} app={app} />
       ));
-    } else return [];
+    } else return <p className="no-search-result">No apps found.</p>;
   }
   
   render() {
@@ -37,7 +51,10 @@ class Overview extends Component {
         <p className="App-intro">
           List of applications
         </p>
-        <div className="App-body-text">
+        <div className="app--overview-search">
+          <SearchBar callBack={this.searchApps} />
+        </div>
+        <div className="app--overview-content">
           {this.renderApps(this.state.apps)}
         </div>
       </div>

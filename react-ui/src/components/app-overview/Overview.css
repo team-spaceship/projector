@@ -1,0 +1,25 @@
+.app--overview-content {
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:space-between;
+    width:95% ;
+    margin:0 auto;
+}
+
+.app--card {
+    flex:auto;
+    margin:5px;
+    border: 1px solid #3c8ad8;
+    border-radius: 10px;
+    width: 20%;
+    height: 100px;
+    min-width: 120px;
+}
+
+.app--overview-search {
+    margin-bottom: 10px;
+}
+
+.no-search-result {
+    margin: 0 auto;
+}
