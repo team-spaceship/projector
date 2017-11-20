@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import AppService from '../../services/appService';
+import CategoryService from '../../services/categoryService';
 import AppCard from '../app-card/AppCard';
 import SearchBar from '../search/SearchBar';
+import Dropdown from '../dropdown/Dropdown';
+
 import './Overview.css';
 
 class Overview extends Component {
@@ -9,28 +12,40 @@ class Overview extends Component {
     super(props);
     
     this.AppService = new AppService();
+    this.CategoryService = new CategoryService();
     this.state = {
       apps: [],
+      categories: [],
+      currentCategory: '',
+      search: '',
     };
     
     this.searchApps = this.searchApps.bind(this);
 
-
-    // Retrieve all apps.
-    this.getApps();
+    // Retrieve all apps and categories.
+    this.getData();
   }
   
-  async getApps() {
+  async getData() {
     const apps = await this.AppService.getApps();
-    
+    const categories = await this.CategoryService.getCategories();
+
     this.setState({
       apps,
+      categories,
     });
   }
 
-  async searchApps(query) {
-    const apps = await this.AppService.searchApps(query);
-    
+  async searchApps(query, searchType) {
+    // Check the origin of the search event.
+    if (searchType === 'category') {
+      this.state.currentCategory = query;
+    } else {
+      this.state.search = query;
+    }
+
+    const apps = await this.AppService.searchApps(this.state.search, this.state.currentCategory);
+
     this.setState({
       apps,
     });
@@ -52,6 +67,7 @@ class Overview extends Component {
         </p>
         <div className="app--overview-search">
           <SearchBar callBack={this.searchApps} />
+          <Dropdown callBack={this.searchApps} items={this.state.categories} />
         </div>
         <div className="app--overview-content">
           {this.renderApps(this.state.apps)}

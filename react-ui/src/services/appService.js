@@ -13,8 +13,8 @@ export default class AppService {
     });
   }
 
-  searchApps(query) {
-    return fetch(`${process.env.REACT_APP_STORE_API}/apps?name=` + query).then((response) => {
+  searchApps(search, category) {
+    return fetch(`${process.env.REACT_APP_STORE_API}/apps?name=${search}&category=${category}`).then((response) => {
       return response.json();
     }).then((json) => {
       if (json.error === 404) {

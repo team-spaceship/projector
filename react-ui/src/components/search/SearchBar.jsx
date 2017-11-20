@@ -24,7 +24,8 @@ class SearchBar extends Component {
 
     // Start new timeout.
     this.searchTimeOut = setTimeout(() => {
-      this.props.callBack(this.state.text);
+      // Execute callback funcion. Pass 1 as parameter to distinquish the origin (Searchbar or Dropdown search)
+      this.props.callBack(this.state.text, 1);
     }, 500);
   }
   render() {
