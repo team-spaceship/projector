@@ -1,5 +1,19 @@
+body {
+  background: url('Images/background.jpg') no-repeat;
+  background-size: cover;
+/*  background: rgba(2,14,50,1);
+  background: -moz-linear-gradient(left, rgba(2,14,50,1) 0%, rgba(3,25,60,1) 45%, rgba(5,145,160,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(2,14,50,1)), color-stop(45%, rgba(3,25,60,1)), color-stop(100%, rgba(5,145,160,1)));
+  background: -webkit-linear-gradient(left, rgba(2,14,50,1) 0%, rgba(3,25,60,1) 45%, rgba(5,145,160,1) 100%);
+  background: -o-linear-gradient(left, rgba(2,14,50,1) 0%, rgba(3,25,60,1) 45%, rgba(5,145,160,1) 100%);
+  background: -ms-linear-gradient(left, rgba(2,14,50,1) 0%, rgba(3,25,60,1) 45%, rgba(5,145,160,1) 100%);
+  background: linear-gradient(to right, rgba(2,14,50,1) 0%, rgba(3,25,60,1) 45%, rgba(5,145,160,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020e32', endColorstr='#0591a0', GradientType=1 );*/
+  color: #fff;
+}
+
 .App {
-  text-align: center;
+  
 }
 
 .App-logo {
@@ -19,7 +33,9 @@
 }
 
 .App-intro {
-  font-size: large;
+    font-size: 18px;
+    width: 1200px;
+    margin: 30px auto 20px;
 }
 
 @keyframes App-logo-spin {
