@@ -961,6 +961,10 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.5.0.tgz#d777b6a4d847d423e5d475da864294ac1ff5aa9d"
+
 commander@^2.11.0, commander@^2.9.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
@@ -1185,10 +1189,6 @@ doctrine@^2.0.0:
   dependencies:
     esutils "^2.0.2"
     isarray "^1.0.0"
-
-dotenv@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
 duplexer@^0.1.1:
   version "0.1.1"
@@ -2290,6 +2290,12 @@ load-json-file@^2.0.0:
     parse-json "^2.2.0"
     pify "^2.0.0"
     strip-bom "^3.0.0"
+
+localenv@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/localenv/-/localenv-0.2.2.tgz#c508f29d3485bdc9341d3ead17f61c5abd1b0bab"
+  dependencies:
+    commander "2.5.0"
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -3557,10 +3563,6 @@ trim@0.0.1:
 tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
-
-ttab@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/ttab/-/ttab-0.6.1.tgz#72001a333d477a92c49f6cb0e83ae07984c66be5"
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
