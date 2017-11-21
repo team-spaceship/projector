@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
 
-import OrderRoutes from "./routes/orderRoutes";
+import AppRoutes from "./routes/appRoutes";
 
 const MongoStore = connectMongo(session);
 
@@ -26,7 +26,6 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(cors());
 
 // Priority serve any static files.
@@ -43,6 +42,6 @@ app.get('*', (request, response) => {
 //   response.render('../react-ui/public/index');
 // });
 
-OrderRoutes.create(app);
+AppRoutes.create(app);
 
 export default app;

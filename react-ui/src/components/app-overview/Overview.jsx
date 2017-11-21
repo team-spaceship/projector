@@ -15,7 +15,6 @@ class Overview extends Component {
     
     this.searchApps = this.searchApps.bind(this);
 
-
     // Retrieve all apps.
     this.getApps();
   }

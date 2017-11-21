@@ -1,6 +1,6 @@
-import orderService from "../services/orderService";
+import appService from "../services/appService";
 
-const orderController = class OrderController {
+const appController = class AppController {
   /**
   * Returns all orders
   *
@@ -8,8 +8,11 @@ const orderController = class OrderController {
   * @param res
   * @param next
   */
-  getAllOrders(req, res) {
-    orderService.getAllOrders(res).then(
+  download(req, res) {
+    console.log(req);
+    const app = req.body;
+
+    appService.download(app).then(
       (result) => {
         res.json(result);
       },
@@ -20,4 +23,4 @@ const orderController = class OrderController {
   }
 };
 
-export default new orderController();
+export default new appController();
