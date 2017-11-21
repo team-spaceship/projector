@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppService from '../../services/appService';
+
 class AppCard extends Component {
   constructor(props) {
     super(props);
     this.AppService = new AppService();
-    this.state = {};
+    this.state = { isToggleOn: true };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   async downloadApp(app, event) {
@@ -13,19 +15,32 @@ class AppCard extends Component {
     console.log(download_response);
     console.log(event);
   }
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn,
+    }));
+  }
   
   render() {
     const { app } = this.props;
+
     return (
       <div key={app._id} className="app--card">
         <div className="app--card-header">
-          <h3>{app.name}</h3>
+          {/* Hier moet een application image gevuld worden. Deze is er volgens mij nog niet? Of is dit app_icon of app_banner? */}
+          <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo"/>
+          <p className="app--card-description">{app.description}</p>
         </div>
         <div className="app--card-body">
-          <p>{app.description}</p>
-          <button onClick={(e) => this.downloadApp(app, e)}>
-            Download
+          <h4>{app.name}</h4>
+          {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
+          <span className="app--card-type">Application Type</span>
+
+          <button className={"button " + (this.state.isToggleOn ? 'pink' : 'blue')} onClick={(e) => this.downloadApp(app, e)}>
+            {this.state.isToggleOn ? 'Install' : 'Installing'}
           </button>
+
         </div>
       </div>
     );

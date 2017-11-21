@@ -1,15 +1,15 @@
 // import App from '../schemas/App';
 
-const appService = class OrderService {
+const syncService = class SyncService {
   /**
   * Returns all orders
   *
   * @returns [{orders}]
   */
-  async download(app) {
+  async sync(app) {
     console.log(app);
     return app;
   }
 };
 
-export default new appService();
+export default new syncService();

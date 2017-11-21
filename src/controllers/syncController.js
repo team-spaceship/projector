@@ -1,6 +1,6 @@
-import appService from "../services/appService";
+import syncService from "../services/syncService";
 
-const appController = class AppController {
+const syncController = class SyncController {
   /**
   * Returns all orders
   *
@@ -9,10 +9,9 @@ const appController = class AppController {
   * @param next
   */
   download(req, res) {
-    console.log(req);
     const app = req.body;
 
-    appService.download(app).then(
+    syncService.download(app).then(
       (result) => {
         res.json(result);
       },
@@ -23,4 +22,4 @@ const appController = class AppController {
   }
 };
 
-export default new appController();
+export default new syncController();

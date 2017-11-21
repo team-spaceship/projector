@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
 
-import AppRoutes from "./routes/appRoutes";
+import SyncRoutes from "./routes/syncRoutes";
 
 const MongoStore = connectMongo(session);
 
@@ -42,6 +42,6 @@ app.get('*', (request, response) => {
 //   response.render('../react-ui/public/index');
 // });
 
-AppRoutes.create(app);
+SyncRoutes.create(app);
 
 export default app;
