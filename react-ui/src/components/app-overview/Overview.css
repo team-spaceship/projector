@@ -1,14 +1,11 @@
 .app--overview-content {
     display:flex;
     flex-flow:row wrap;
-    justify-content:space-between;
-    width: 1200px ;
-    margin:0 auto;
+    justify-content:flex-start;
 }
 
 .app--overview-search {
-    width: 1200px;
-    margin: 0px auto 30px;
+    margin-bottom: 30px;
 }
 
 .app--overview-search input[type="search"] {
@@ -22,10 +19,8 @@
 }
 
 .app--card {
-    width: calc(25% - 20px);
     height: auto;
     position: relative;
-    background: #fff;
     color: #030f33;
     margin-bottom: 30px;
     transition: all 0.3s ease-in 0.1s;
@@ -60,7 +55,7 @@
     position: absolute;
     bottom: 0;
     padding: 15px;
-    width: calc(100% - 30px);
+    width: 100%;
     font-size: 12px;
     color: #fff;
     line-height: 16px;
@@ -70,6 +65,8 @@
 
 .app--card-body {
     padding: 15px;
+    background: #fff;
+    position: relative;
 }
 
 .app--card-body h4 {
@@ -92,6 +89,8 @@
     width: 85px;
     text-align: center;
     transition: all 0.3s ease 0.1s;
+    border: none;
+    cursor: pointer;
 }
 
 .button.blue {
