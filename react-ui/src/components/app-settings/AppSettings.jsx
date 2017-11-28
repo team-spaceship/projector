@@ -1,29 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppHeader from './AppHeader';
+import AppService from '../../services/appService';
 import './appsettings.css';
 
 class AppSettings extends Component {
-  constructor() {
-    super();
-    this.state = {};
+  constructor(props) {
+    super(props);
+    this.AppService = new AppService();
+    
+    this.state = {
+      app: null,
+    };
+  }
+
+  componentDidMount() {
+    this.getAppById(this.props.match.params.id);
+  }
+
+  async getAppById(id) {
+    const app = await this.AppService.getAppById(id);
+
+    this.setState({
+      app,
+    });
   }
 
   render() {
-    return (
-      <div>
-        <div className="container">
-          <AppHeader appId={this.props.match.params.id} />
-        </div>
-        <div className="container-light">
+    if (this.state.app) {
+      return (
+        <div>
           <div className="container">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio inventore modi quo molestiae enim sed perspiciatis facilis aliquam harum rem laudantium maxime corrupti iusto voluptatum voluptates perferendis, quisquam nemo eveniet!
-            </p>
+            <AppHeader appId={this.props.match.params.id} name={this.state.app.name} />
+          </div>
+          <div className="container-light">
+            <div className="container">
+              <p>
+                {this.state.app.description}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 

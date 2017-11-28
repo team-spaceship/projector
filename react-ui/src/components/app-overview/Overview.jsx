@@ -18,7 +18,6 @@ class Overview extends Component {
     
     this.searchApps = this.searchApps.bind(this);
 
-
     // Retrieve all apps.
     this.getApps();
   }
@@ -31,8 +30,8 @@ class Overview extends Component {
     });
   }
 
-  onAppSelect = (id) =>{
-    this.props.history.push('/app/' + id +'/settings')
+  onAppSelect = (id) => {
+    this.props.history.push('/app/' + id +'/settings');
   }
 
   async searchApps(query) {
@@ -46,7 +45,7 @@ class Overview extends Component {
   renderApps(apps) {
     if (apps.length > 0) {
       return apps.map(app => (
-        <AppCard key={app.id} app={app} onAppSelect={this.onAppSelect} />
+        <AppCard key={app._id} app={app} onAppSelect={this.onAppSelect} />
       ));
     } else return <p className="no-search-result">No apps found.</p>;
   }
