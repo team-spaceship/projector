@@ -7,11 +7,17 @@ export default class AppService {
         console.error("No apps were found.");
         return [];
       }
-    
-      console.log(json);
       return json;   
     }).catch((error) => {
       console.error(error);
+    });
+  }
+
+  searchApps(query) {
+    return fetch(`${process.env.REACT_APP_STORE_API}/apps?name=` + query).then((response) => {
+      return response.json();
+    }).then((json) => {
+      return json;
     });
   }
 
