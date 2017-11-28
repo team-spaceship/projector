@@ -5,9 +5,11 @@ import './App.css';
 
 const App = () => {
   return (
+    /* eslint-disable */
     <div className="App">
       <Overview />
     </div>
+    /* eslint-enable */
   );
 }
 
