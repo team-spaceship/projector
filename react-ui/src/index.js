@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import AppSettings from './components/app-settings/AppSettings';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 
 /* eslint-disable */
@@ -17,4 +17,4 @@ ReactDOM.render(
   </Router>
 , document.getElementById('root'));
 /* eslint-enable */
-registerServiceWorker();
+// registerServiceWorker();

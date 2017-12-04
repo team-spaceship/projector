@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AppService from '../../services/appService';
 
 class AppCard extends Component {
   constructor(props) {
     super(props);
+    this.AppService = new AppService();
     this.state = {};
+  }
+
+  async downloadApp(app) {
+    const download_response = await this.AppService.download(app);
+
+    return download_response;
   }
   
   render() {
@@ -21,6 +29,7 @@ class AppCard extends Component {
     return (
       <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12">
         <div className="app--card-header">
+          {/* Hier moet een application image gevuld worden. Deze is er volgens mij nog niet? Of is dit app_icon of app_banner? */}
           <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
           <p className="app--card-description">
             {appDescription()}
@@ -28,10 +37,13 @@ class AppCard extends Component {
         </div>
         <div className="app--card-body">
           <h4>{app.name}</h4>
+          {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
           <span className="app--card-type">Application Type</span>
+
           <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app._id); }}>
             Settings
           </button>
+
         </div>
       </div>
     );
@@ -49,7 +61,7 @@ AppCard.propTypes = {
     app_icon: PropTypes.string.isRequired,
     app_banner: PropTypes.string.isRequired,
     min_os_version: PropTypes.string.isRequired,
-    //  version: PropTypes.string.isRequired,    
+    version: PropTypes.string,    
   }).isRequired,
 };
 
