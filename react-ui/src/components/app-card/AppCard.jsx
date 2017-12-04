@@ -19,9 +19,9 @@ class AppCard extends Component {
     }
 
     return (
-      <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12">
-        <div className="app--card-header">
-          <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
+      <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12" >
+        <div className="app--card-header" >
+          <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" onClick={() => { this.props.setActiveApp(this.props.name); }}/>
           <p className="app--card-description">
             {appDescription()}
           </p>
@@ -40,6 +40,7 @@ class AppCard extends Component {
 
 AppCard.propTypes = {
   onAppSelect: PropTypes.func.isRequired,
+  setActiveApp: PropTypes.func.isRequired,
   app: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,

@@ -34,6 +34,9 @@ class Overview extends Component {
     this.props.history.push('/app/' + id +'/settings');
   }
 
+  setActiveApp = (name) => {
+    this.props.history.push('/app/' + name + '/view')
+  }
   async searchApps(query) {
     const apps = await this.AppService.searchApps(query);
     
@@ -45,7 +48,7 @@ class Overview extends Component {
   renderApps(apps) {
     if (apps.length > 0) {
       return apps.map(app => (
-        <AppCard key={app._id} app={app} onAppSelect={this.onAppSelect} />
+        <AppCard key={app._id} app={app} onAppSelect={this.onAppSelect} setActiveApp={this.setActiveApp} />
       ));
     } else return <p className="no-search-result">No apps found.</p>;
   }
