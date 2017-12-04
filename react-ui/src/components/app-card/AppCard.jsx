@@ -6,14 +6,10 @@ class AppCard extends Component {
   constructor(props) {
     super(props);
     this.AppService = new AppService();
-    this.state = { isToggleOn: true };
+    this.state = {};
   }
 
   async downloadApp(app) {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn,
-    }));
-
     const download_response = await this.AppService.download(app);
 
     return download_response;
@@ -22,20 +18,30 @@ class AppCard extends Component {
   render() {
     const { app } = this.props;
 
+    function appDescription() {
+      if (app.description.length > 140) {
+        return app.description.slice(0, 140) + "...";
+      } else {
+        return app.description;
+      }
+    }
+
     return (
-      <div className="app--card">
+      <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12">
         <div className="app--card-header">
           {/* Hier moet een application image gevuld worden. Deze is er volgens mij nog niet? Of is dit app_icon of app_banner? */}
           <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
-          <p className="app--card-description">{app.description}</p>
+          <p className="app--card-description">
+            {appDescription()}
+          </p>
         </div>
         <div className="app--card-body">
           <h4>{app.name}</h4>
           {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
           <span className="app--card-type">Application Type</span>
 
-          <button className={"button " + (this.state.isToggleOn ? 'pink' : 'blue')} onClick={(e) => this.downloadApp(app, e)}>
-            {this.state.isToggleOn ? 'Install' : 'Installing'}
+          <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app._id); }}>
+            Settings
           </button>
 
         </div>
@@ -45,6 +51,7 @@ class AppCard extends Component {
 }
 
 AppCard.propTypes = {
+  onAppSelect: PropTypes.func.isRequired,
   app: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
