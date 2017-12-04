@@ -46,7 +46,7 @@ class Overview extends Component {
   }
   
   renderApps(apps) {
-    if (apps.length > 0) {
+      if (apps && apps.length > 0) {
       return apps.map(app => (
         <AppCard key={app._id} app={app} onAppSelect={this.onAppSelect} setActiveApp={this.setActiveApp} />
       ));

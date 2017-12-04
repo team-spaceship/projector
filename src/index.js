@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import server from './server';
+import syncService from './services/syncService';
 
 mongoose.Promise = Promise;
 
@@ -16,3 +17,5 @@ mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true }).then(() => {
   console.log('CONNECTED TO DB.');
   server.listen(process.env.PORT, () => 'SERVER STARTED.');
 });
+
+syncService.sync();
