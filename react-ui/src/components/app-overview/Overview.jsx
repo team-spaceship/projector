@@ -36,9 +36,9 @@ class Overview extends Component {
   }
   
   renderApps(apps) {
-    if (apps.length > 0) {
+    if (apps && apps.length > 0) {
       return apps.map(app => (
-        <AppCard key={app.id} app={app} />
+        <AppCard key={app._id} app={app} />
       ));
     } else return <p className="no-search-result">No apps found.</p>;
   }

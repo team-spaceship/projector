@@ -1,10 +1,10 @@
 import syncController from "../controllers/syncController";
 
-export default class AppRoutes {
+export default class SyncRoutes {
   /**
-  * Create the order routes.
+  * Create the sync routes.
   */
   static create(router) {
     router.get('/v1/sync/start', syncController.sync);
-  }  
+  }
 }

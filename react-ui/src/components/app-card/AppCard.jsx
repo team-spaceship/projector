@@ -7,29 +7,26 @@ class AppCard extends Component {
     super(props);
     this.AppService = new AppService();
     this.state = { isToggleOn: true };
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  async downloadApp(app, event) {
-    const download_response = await this.AppService.download(app);
-    console.log(download_response);
-    console.log(event);
-  }
-
-  handleClick() {
+  async downloadApp(app) {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn,
     }));
+
+    const download_response = await this.AppService.download(app);
+
+    return download_response;
   }
   
   render() {
     const { app } = this.props;
 
     return (
-      <div key={app._id} className="app--card">
+      <div className="app--card">
         <div className="app--card-header">
           {/* Hier moet een application image gevuld worden. Deze is er volgens mij nog niet? Of is dit app_icon of app_banner? */}
-          <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo"/>
+          <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
           <p className="app--card-description">{app.description}</p>
         </div>
         <div className="app--card-body">
@@ -57,7 +54,7 @@ AppCard.propTypes = {
     app_icon: PropTypes.string.isRequired,
     app_banner: PropTypes.string.isRequired,
     min_os_version: PropTypes.string.isRequired,
-    version: PropTypes.string.isRequired,    
+    version: PropTypes.string,    
   }).isRequired,
 };
 

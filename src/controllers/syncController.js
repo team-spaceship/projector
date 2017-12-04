@@ -8,10 +8,8 @@ const syncController = class SyncController {
   * @param res
   * @param next
   */
-  download(req, res) {
-    const app = req.body;
-
-    syncService.download(app).then(
+  sync(req, res) {
+    syncService.sync().then(
       (result) => {
         res.json(result);
       },

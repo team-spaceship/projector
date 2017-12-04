@@ -6,6 +6,7 @@
   "author": "Team Spaceship",
   "license": "MIT",
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
@@ -20,7 +21,7 @@
     "isomorphic-fetch": "^2.2.1",
     "localenv": "^0.2.2",
     "mongoose": "^4.12.6",
-    "morgan": "^1.9.0"
+    "request": "^2.83.0"
   },
   "scripts": {
     "all": "yarn run frontend && yarn start",

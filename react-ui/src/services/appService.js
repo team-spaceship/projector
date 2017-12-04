@@ -31,7 +31,7 @@ export default class AppService {
   }
 
   download(app) {
-    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/apps/download`, {
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/sync/start`, {
       headers: {
         'Content-Type': 'text/json',
       },
