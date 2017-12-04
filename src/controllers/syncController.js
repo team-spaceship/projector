@@ -1,6 +1,6 @@
-import orderService from "../services/orderService";
+import syncService from "../services/syncService";
 
-const orderController = class OrderController {
+const syncController = class SyncController {
   /**
   * Returns all orders
   *
@@ -8,8 +8,8 @@ const orderController = class OrderController {
   * @param res
   * @param next
   */
-  getAllOrders(req, res) {
-    orderService.getAllOrders(res).then(
+  sync(req, res) {
+    syncService.sync().then(
       (result) => {
         res.json(result);
       },
@@ -20,4 +20,4 @@ const orderController = class OrderController {
   }
 };
 
-export default new orderController();
+export default new syncController();
