@@ -9,11 +9,11 @@ import path from 'path';
 import reactViews from 'express-react-views';
 import AppRoutes from "./routes/appRoutes";
 import SyncRoutes from "./routes/syncRoutes";
-
+import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
-
 const app = express();
+const serv = require('http').Server(app);
 
 // express-react-views
 app.set('views', path.join(__dirname, '../apps'));
@@ -37,6 +37,13 @@ app.use(cors());
 
 AppRoutes.create(app);
 SyncRoutes.create(app);
+
+
+// Create Websocket Server.
+serv.listen(process.env.WEBSOCKET_PORT);
+const io = require('socket.io')(serv, {});
+
+WebsocketServer.create(io);
 
 // All remaining requests return the React app, so it can handle routing.
 app.use(express.static(__dirname + '/../react-ui/build'));

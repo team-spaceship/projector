@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import AppService from '../../services/appService';
 
 class AppCard extends Component {
   constructor(props) {
     super(props);
     this.AppService = new AppService();
-    this.state = {
-      appState: 'Activate',
-    };
-  }
-
-  onAppActivate() {
-    this.props.setActiveApp(this.props.app.name);
-    this.setState({
-      appState: (this.state.appState === 'Activate') ? 'Activated' : 'Activate',
-    });
+    this.state = {};
   }
 
   async downloadApp(app) {
@@ -53,29 +43,13 @@ class AppCard extends Component {
           <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app._id); }}>
             Settings
           </button>
-          <button className="button" href="#" onClick={() => { this.onAppActivate(); }}>
-            {this.state.appState}
+          <button className="button" href="#" onClick={() => { this.props.setActiveApp(this.props.app.name, this.props.app._id); }}>
+            { this.props.activeAppId === this.props.app._id ? "Activated" : "Activate" }
           </button>
         </div>
       </div>
     );
   }
 }
-
-AppCard.propTypes = {
-  onAppSelect: PropTypes.func.isRequired,
-  setActiveApp: PropTypes.func.isRequired,
-  app: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    app_icon: PropTypes.string.isRequired,
-    app_banner: PropTypes.string.isRequired,
-    min_os_version: PropTypes.string.isRequired,
-    version: PropTypes.string,    
-  }).isRequired,
-};
 
 export default AppCard;
