@@ -18,11 +18,13 @@ class AppCard extends Component {
   render() {
     const { app } = this.props;
 
+    const latest_version = app.versions[app.versions.length - 1];
+
     function appDescription() {
-      if (app.description.length > 140) {
-        return app.description.slice(0, 140) + "...";
+      if (latest_version.description.length > 140) {
+        return latest_version.description.slice(0, 140) + "...";
       } else {
-        return app.description;
+        return latest_version.description;
       }
     }
 
