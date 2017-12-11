@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import AppService from '../../services/appService';
 import AppCard from '../app-card/AppCard';
 import SearchBar from '../search/SearchBar';
 import './Overview.css';
 
 class Overview extends Component {
-
   constructor(props) {
     super(props);
     
@@ -21,6 +20,10 @@ class Overview extends Component {
     // Retrieve all apps.
     this.getApps();
   }
+
+  onAppSelect(id) {
+    this.props.history.push('/app/' + id + '/settings');
+  }
   
   async getApps() {
     const apps = await this.AppService.getApps();
@@ -30,12 +33,8 @@ class Overview extends Component {
     });
   }
 
-  onAppSelect = (id) => {
-    this.props.history.push('/app/' + id +'/settings');
-  }
-
-  setActiveApp = (name) => {
-    this.props.history.push('/app/' + name + '/view')
+  setActiveApp(name) {
+    this.props.history.push('/app/' + name + '/view');
   }
   async searchApps(query) {
     const apps = await this.AppService.searchApps(query);
@@ -46,7 +45,7 @@ class Overview extends Component {
   }
   
   renderApps(apps) {
-      if (apps && apps.length > 0) {
+    if (apps && apps.length > 0) {
       return apps.map(app => (
         <AppCard key={app._id} app={app} onAppSelect={this.onAppSelect} setActiveApp={this.setActiveApp} />
       ));

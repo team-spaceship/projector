@@ -1,30 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ClockApp from '../../../../apps/Klok/index';
+import AppService from '../../services/appService';
 
 class AppSettings extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      ActiveApp: 'ClockApp',
+      component: null,
     };
+
+    this.AppService = new AppService();
   }
   
   componentDidMount() {
-    this.setActiveApp(this.props.match.params.name);
+    this.renderActiveApp(this.props.match.params.name);
   }
   
-  setActiveApp(name) {
-    // this.setState({
-    //   ClockApp: ,
-    // });
+  renderActiveApp(name) {
+    const html = this.AppService.generateComponent(name);
+    console.log(html);
+    this.setState({
+      component: html,
+    });
   }
   
   render() {
-    if (this.state.ActiveApp) {
+    if (this.state.component) {
       return (
-        <div>Hello</div>
+        <div><this.state.component /></div>
       );
     } else {
       return null;

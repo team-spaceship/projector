@@ -30,6 +30,21 @@ export default class AppService {
     });
   }
 
+  generateComponent(name) {
+    return fetch(`${process.env.REACT_APP_STORE_API}/render/${name}`).then((response) => {
+      return response.json();
+    }).then((json) => {
+      if (json.error === 404) {
+        console.error("No apps were found.");
+        return [];
+      }
+
+      return json;
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
   download(app) {
     return fetch(`${process.env.REACT_APP_PROJECTOR_API}/sync/start`, {
       headers: {

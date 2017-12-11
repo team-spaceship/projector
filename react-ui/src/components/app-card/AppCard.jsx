@@ -6,7 +6,16 @@ class AppCard extends Component {
   constructor(props) {
     super(props);
     this.AppService = new AppService();
-    this.state = {};
+    this.state = {
+      appState: 'Activate',
+    };
+  }
+
+  onAppActivate() {
+    this.props.setActiveApp(this.props.app.name);
+    this.setState({
+      appState: (this.state.appState === 'Activate') ? 'Activated' : 'Activate',
+    });
   }
 
   async downloadApp(app) {
@@ -14,7 +23,7 @@ class AppCard extends Component {
 
     return download_response;
   }
-  
+
   render() {
     const { app } = this.props;
 
@@ -28,8 +37,7 @@ class AppCard extends Component {
 
     return (
       <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12">
-        <div className="app--card-header" onClick={() => { this.props.onAppSelect(this.props.app.name); }}> 
-          {/* Hier moet een application image gevuld worden. Deze is er volgens mij nog niet? Of is dit app_icon of app_banner? */}
+        <div className="app--card-header"> 
           <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
           <p className="app--card-description">
             {appDescription()}
@@ -43,7 +51,9 @@ class AppCard extends Component {
           <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app._id); }}>
             Settings
           </button>
-
+          <button className="button" href="#" onClick={() => { this.onAppActivate(); }}>
+            {this.state.appState}
+          </button>
         </div>
       </div>
     );
@@ -52,6 +62,7 @@ class AppCard extends Component {
 
 AppCard.propTypes = {
   onAppSelect: PropTypes.func.isRequired,
+  setActiveApp: PropTypes.func.isRequired,
   app: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,

@@ -3,8 +3,10 @@ import path from 'path';
 
 const appService = class AppService {
   renderApp(req, res) {
-    const location = path.join(__dirname, `../../apps/${req.params.name}`);
-    if (fs.existsSync(location)) {
+    const locationJSFile = path.join(__dirname, `../../apps/${req.params.name}/index.js`);
+    const locationJSXFile = path.join(__dirname, `../../apps/${req.params.name}/index.jsx`);
+    
+    if (fs.existsSync(locationJSFile) || locationJSXFile) {
       // Do something
       console.log('Directory exists');
       return res.render(`${req.params.name}/index`, {});

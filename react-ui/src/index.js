@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import AppSettings from './components/app-settings/AppSettings';
+import ActiveApp from './components/active-app/ActiveApp'
 // import registerServiceWorker from './registerServiceWorker';
 
 
@@ -13,6 +14,7 @@ ReactDOM.render(
     <div>
       <Route exact path="/" component={App} />
       <Route path="/app/:id/settings" component={AppSettings} />
+      <Route path="/app/:name/view" component={ActiveApp} />
     </div>
   </Router>
 , document.getElementById('root'));
