@@ -5,6 +5,6 @@ export default class AppRoutes {
   * Create the order routes.
   */
   static create(router) {
-    router.get('/v1/app:name', appController.renderSelectedApp);
+    router.get('/v1/render/:name', appController.renderSelectedApp);
   }  
 }

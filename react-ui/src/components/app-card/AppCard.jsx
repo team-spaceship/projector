@@ -28,7 +28,7 @@ class AppCard extends Component {
 
     return (
       <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12">
-        <div className="app--card-header">
+        <div className="app--card-header" onClick={() => { this.props.onAppSelect(this.props.app.name); }}> 
           {/* Hier moet een application image gevuld worden. Deze is er volgens mij nog niet? Of is dit app_icon of app_banner? */}
           <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
           <p className="app--card-description">
