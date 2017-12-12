@@ -6,7 +6,6 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
-import reactViews from 'express-react-views';
 import AppRoutes from "./routes/appRoutes";
 import SyncRoutes from "./routes/syncRoutes";
 import WebsocketServer from './websocket-server';
@@ -14,11 +13,6 @@ import WebsocketServer from './websocket-server';
 const MongoStore = connectMongo(session);
 const app = express();
 const serv = require('http').Server(app);
-
-// express-react-views
-app.set('views', path.join(__dirname, '../apps'));
-app.set('view engine', 'jsx');
-app.engine('jsx', reactViews.createEngine());
 
 app.set('trust proxy');
 

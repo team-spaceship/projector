@@ -14,7 +14,7 @@ ReactDOM.render(
     <div>
       <Route exact path="/" component={App} />
       <Route path="/app/:id/settings" component={AppSettings} />
-      <Route path="/projector/:id" component={ProjectorView} />
+      <Route path="/projector" component={ProjectorView} />
     </div>
   </Router>
 , document.getElementById('root'));

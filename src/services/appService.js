@@ -1,22 +1,21 @@
-import React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
 import fs from 'fs';
 import path from 'path';
-
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import render from 'react-node-render';
 
 const appService = class AppService {
-  renderApp(req, res) {
-    const locationJSFile = path.join(__dirname, `../../apps/${req.params.name}/index.js`);
+  async renderApp(req, res) {
     const locationJSXFile = path.join(__dirname, `../../apps/${req.params.name}/index.jsx`);
-    
-    if (fs.existsSync(locationJSFile) || locationJSXFile) {
-      // Do something
-      console.log('Directory exists');
-      // return res.render(`${req.params.name}/index`, {});
+   
+    // Check if the file exists.
+    if (fs.existsSync(locationJSXFile)) {
+      const html = await render(locationJSXFile);
+      console.log(html);
+      // const comp = require(`${locationJSXFile}`);
+      // const component = ReactDOM.createFactory(comp);
 
-
+      // return res.json({ message: "Successfully rendered component.", component: ReactDOM.renderToString(Component()) });
     } else {
       return res.json({ status: 403, message: 'App not found' });
     }

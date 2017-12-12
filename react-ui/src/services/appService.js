@@ -31,7 +31,7 @@ export default class AppService {
   }
 
   generateComponent(name) {
-    return fetch(`${process.env.REACT_APP_STORE_API}/render/${name}`).then((response) => {
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/render/${name}`).then((response) => {
       return response.json();
     }).then((json) => {
       if (json.error === 404) {

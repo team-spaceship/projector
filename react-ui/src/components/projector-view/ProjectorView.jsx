@@ -1,48 +1,67 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import AppService from '../../services/appService';
+import WebsocketService from '../../services/websocketService';
 
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {
-      component: null,
-    };
+    this.state = {};
 
     this.AppService = new AppService();
+    this.WebsocketService = new WebsocketService(true);
+
+    // listen to renderApp socket event.
+    this.WebsocketService.projectorViewInit(this.renderActiveApp, this);
+    this.renderActiveApp = this.renderActiveApp.bind(this);
   }
   
   componentDidMount() {
-    this.renderActiveApp(this.props.match.params.id);
+
   }
   
-  renderActiveApp(name) {
-    const html = this.AppService.generateComponent(name);
-    console.log(html);
-    this.setState({
-      component: html,
+  renderActiveApp(data, scope) {
+    // Ik geef aan de callback de scope mee omdat ik op een of andere manier geen 'this' kan binden. (Dus een temp fix).
+    // this.renderActiveApp = this.renderActiveApp.bind(this); werkt niet :(
+    
+    // this is the same disable all stylesheets
+    // Array.prototype.forEach.call(stylesheets, (element) => {
+    //   try {
+    //     console.log(element);
+        
+    //   } catch (err) { 
+    //     console.log(err);
+    //   }
+    // });
+
+    /* eslint-disable */
+    if (scope.state.component) {
+      document.styleSheets[document.styleSheets.length - 1].disabled = true;
+    }
+    /* eslint enable */
+    
+    // Import the component
+    const component = require(`../../apps/${data.app}`).default;
+
+    scope.setState({ 
+      component,
     });
-    console.log(html);
   }
   
   render() {
     if (this.state.component) {
       return (
-        <div>Hoi</div>
+        <this.state.component />
       );
     } else {
-      return null;
+      return <p>You haven't opened any app yet. Go to your mobile app and select your desired app.</p>;
     }
+
+    // return (
+    //   <div>{this.state.activeApp}</div>
+    // );
   }
 }
-
-ProjectorView.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,   
-  }).isRequired,
-};
 
 export default ProjectorView;
