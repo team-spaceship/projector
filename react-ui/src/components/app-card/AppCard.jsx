@@ -52,19 +52,4 @@ class AppCard extends Component {
   }
 }
 
-AppCard.propTypes = {
-  onAppSelect: PropTypes.func.isRequired,
-  app: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    app_icon: PropTypes.string.isRequired,
-    app_banner: PropTypes.string.isRequired,
-    min_os_version: PropTypes.string.isRequired,
-    version: PropTypes.string,    
-  }).isRequired,
-};
-
 export default AppCard;

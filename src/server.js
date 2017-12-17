@@ -6,6 +6,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
+import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
 
 const MongoStore = connectMongo(session);
@@ -25,7 +26,31 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+
+const whitelist = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://localhost:3003',
+];
+
+const corsOptions = {
+  credentials: true,
+  origin: (origin, callback) => {
+    console.log('Request origin:', origin);
+    if (origin === undefined || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+// enable cors
+app.use(cors(corsOptions));
+app.options('*', cors());
+
+app.use(passport);
 
 SyncRoutes.create(app);
 
