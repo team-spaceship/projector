@@ -18,7 +18,7 @@ class AppCard extends Component {
   render() {
     const { app } = this.props;
 
-    const latest_version = app.versions[app.versions.length - 1];
+    const latest_version = app.version;
 
     function appDescription() {
       if (latest_version.description.length > 140) {
@@ -38,11 +38,11 @@ class AppCard extends Component {
           </p>
         </div>
         <div className="app--card-body">
-          <h4>{app.name}</h4>
+          <h4>{app.version.name}</h4>
           {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
           <span className="app--card-type">Application Type</span>
 
-          <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app._id); }}>
+          <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app.version._id); }}>
             Settings
           </button>
 

@@ -6,7 +6,6 @@ import SearchBar from '../search/SearchBar';
 import './Overview.css';
 
 class Overview extends Component {
-
   constructor(props) {
     super(props);
     
@@ -21,10 +20,14 @@ class Overview extends Component {
 
     // Retrieve all apps.
     this.getApps();
+
+    this.onAppSelect = (id) => {
+      this.props.history.push('/app/' + id + '/settings');
+    };
   }
   
   async getApps() {
-    const apps = await this.AppService.getApps();
+    const apps = await this.AppService.getInstalledApps();
     
     this.setState({
       apps,
@@ -32,12 +35,10 @@ class Overview extends Component {
   }
 
   async triggerSync() {
-    const apps = await this.AppService.triggerSync();
-  }  
+    const synced_apps = await this.AppService.triggerSync();
 
-  onAppSelect = (id) => {
-    this.props.history.push('/app/' + id +'/settings');
-  }
+    console.log(synced_apps);
+  }  
 
   async searchApps(query) {
     const apps = await this.AppService.searchApps(query);
