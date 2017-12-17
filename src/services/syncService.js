@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import request from 'request';
 import AdmZip from 'adm-zip';
-import App from '../schemas/App';
+import InstalledVersion from '../schemas/InstalledVersion';
 
 const syncService = class SyncService {
   /**
@@ -9,10 +9,15 @@ const syncService = class SyncService {
   *
   * @returns [{orders}]
   */
-  async sync() {
+  async sync(user_id) {
+    if (!user_id) {
+      console.log("SyncService requires user_id");
+      return "user_id not found";
+    }
+
     const apps = [];
     const local_apps = await this.getLocalApps();
-    const server_apps = await this.getAppsFromServer();
+    const server_apps = await this.getAppsFromServer(user_id);
 
     // When local_apps is empty insert a: 'none' string so syncing can continue
     if (!local_apps.length) {
@@ -101,9 +106,8 @@ const syncService = class SyncService {
     return local_apps;
   }
 
-  async getAppsFromServer() {
-    // @TODO: get installed apps from user, not all apps!
-    const apps = await App.find().exec();
+  async getAppsFromServer(user_id) {
+    const apps = this.getInstalledAppsByUserId(user_id);
 
     if (!apps) {
       console.log("404 apps not found :(");
@@ -112,6 +116,17 @@ const syncService = class SyncService {
 
     return apps;    
   }
+
+  async getInstalledAppsByUserId(user_id) {
+    const user_apps = await InstalledVersion
+      .find({ user: user_id })
+      .populate('user')
+      .populate('version')
+      .exec();
+
+    return user_apps;
+  }
+
 
   convertAppName(app_name) {
     return app_name.split(' ').join('-');

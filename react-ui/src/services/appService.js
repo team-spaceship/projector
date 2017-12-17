@@ -65,4 +65,28 @@ export default class AppService {
       console.error(error);
     });
   }
+
+  triggerSync() {
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/sync/start`, {
+      credentials: 'include',
+      mode: 'cors',
+    }).then((response) => {
+      return response.json();
+    }).then((json) => {
+      if (json.error === 404) {
+        throw new Error("Could not find app to sync.");
+      }
+
+      return json;
+    }).catch((error) => {
+      this.errorToJson(error);
+    });
+  }
+
+  errorToJson(error) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }  
 }

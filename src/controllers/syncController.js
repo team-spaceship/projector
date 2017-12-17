@@ -9,12 +9,17 @@ const syncController = class SyncController {
   * @param next
   */
   sync(req, res) {
-    syncService.sync().then(
+    if (!req.user) {
+      return res.status(500).send({ message: "Please provide a user to start syncing" });
+    }
+
+    syncService.sync(req.user._id).then(
       (result) => {
         res.json(result);
       },
-      () => {
-        res.status(500).send({ messsage: "Something went wrong" });
+      (e) => {
+        console.log(e);
+        res.status(500).send({ message: `Something went wrong: ${e}` });
       },
     );
   }

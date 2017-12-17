@@ -17,6 +17,7 @@ class Overview extends Component {
     };
     
     this.searchApps = this.searchApps.bind(this);
+    this.triggerSync = this.triggerSync.bind(this);
 
     // Retrieve all apps.
     this.getApps();
@@ -29,6 +30,10 @@ class Overview extends Component {
       apps,
     });
   }
+
+  async triggerSync() {
+    const apps = await this.AppService.triggerSync();
+  }  
 
   onAppSelect = (id) => {
     this.props.history.push('/app/' + id +'/settings');
@@ -54,9 +59,14 @@ class Overview extends Component {
     return (
       <div className="container">
         <div className="row">
-          <p className="App-intro col-md-12">
+          <p className="App-intro col-md-7">
             List of applications
           </p>
+          <div className="col-md-5">
+            <button className="btn btn-sync" onClick={this.triggerSync} >
+              Trigger Sync
+            </button>
+          </div>
           <div className="app--overview-search col-md-12">
             <SearchBar callBack={this.searchApps} />
           </div>
