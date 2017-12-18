@@ -5,7 +5,6 @@ import connectMongo from 'connect-mongo';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import AppRoutes from "./routes/appRoutes";
 import SyncRoutes from "./routes/syncRoutes";
 import WebsocketServer from './websocket-server';
 
@@ -28,9 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-AppRoutes.create(app);
 SyncRoutes.create(app);
-
 
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
