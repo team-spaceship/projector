@@ -5,7 +5,6 @@ import connectMongo from 'connect-mongo';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import path from 'path';
 import AppRoutes from "./routes/appRoutes";
 import SyncRoutes from "./routes/syncRoutes";
 import WebsocketServer from './websocket-server';
