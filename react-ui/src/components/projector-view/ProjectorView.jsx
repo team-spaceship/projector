@@ -22,21 +22,10 @@ class ProjectorView extends Component {
   }
   
   renderActiveApp(data, scope) {
-    // Ik geef aan de callback de scope mee omdat ik op een of andere manier geen 'this' kan binden. (Dus een temp fix).
-    // this.renderActiveApp = this.renderActiveApp.bind(this); werkt niet :(
-    
-    // this is the same disable all stylesheets
-    // Array.prototype.forEach.call(stylesheets, (element) => {
-    //   try {
-    //     console.log(element);
-        
-    //   } catch (err) { 
-    //     console.log(err);
-    //   }
-    // });
-
+    console.log(data.app);
     /* eslint-disable */
     if (scope.state.component) {
+      // Hier moeten we iets slims voor verzinnen.
       document.styleSheets[document.styleSheets.length - 1].disabled = true;
     }
     /* eslint enable */
@@ -57,10 +46,6 @@ class ProjectorView extends Component {
     } else {
       return <p>You haven't opened any app yet. Go to your mobile app and select your desired app.</p>;
     }
-
-    // return (
-    //   <div>{this.state.activeApp}</div>
-    // );
   }
 }
 
