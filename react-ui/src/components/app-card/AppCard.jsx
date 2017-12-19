@@ -35,8 +35,9 @@ class AppCard extends Component {
             {appDescription()}
           </p>
         </div>
+        
         <div className="app--card-body">
-          <h4>{app.version.name}</h4>
+          <h4>{app.version.app.name}</h4>
           {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
           <span className="app--card-type">Application Type</span>
 
