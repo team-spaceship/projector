@@ -8,10 +8,11 @@ import cors from 'cors';
 
 import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
+import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
-
 const app = express();
+const serv = require('http').Server(app);
 
 app.set('trust proxy');
 
@@ -26,7 +27,6 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 const whitelist = [
   'http://localhost:3000',
   'http://localhost:3001',
@@ -46,13 +46,20 @@ const corsOptions = {
   },
 };
 
+SyncRoutes.create(app);
+
+// Create Websocket Server.
+serv.listen(process.env.WEBSOCKET_PORT);
+const io = require('socket.io')(serv, {});
+WebsocketServer.create(io);
+
 // enable cors
 app.use(cors(corsOptions));
 app.options('*', cors());
 
 app.use(passport);
 
-SyncRoutes.create(app);
+// All remaining requests return the React app, so it can handle routing.
 
 app.use(express.static(__dirname + '/../react-ui/build'));
 
