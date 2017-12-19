@@ -37,24 +37,26 @@ class Overview extends Component {
     });
   }
 
-  async triggerSync() {
-    const synced_apps = await this.AppService.triggerSync();
-
-    console.log(synced_apps);
-  }
-
   setActiveApp(name, id) {
     this.setState({
       activeAppId: id,
     });
     this.WebsocketService.setActiveApp(name);
   }
+
   async searchApps(query) {
     const apps = await this.AppService.searchApps(query);
     
     this.setState({
       apps,
     });
+  }
+
+  async triggerSync() {
+    const synced_apps = await this.AppService.triggerSync();
+
+    // @TODO: show user syncing is complete?
+    console.log(synced_apps);
   }
   
   renderApps(apps) {

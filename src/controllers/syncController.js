@@ -18,7 +18,6 @@ const syncController = class SyncController {
         res.json(result);
       },
       (e) => {
-        console.log(e);
         res.status(500).send({ message: `Something went wrong: ${e}` });
       },
     );

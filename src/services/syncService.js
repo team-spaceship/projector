@@ -1,8 +1,6 @@
 import * as fs from 'fs';
 import request from 'request';
 import AdmZip from 'adm-zip';
-import Version from '../schemas/Version';
-import App from '../schemas/App';
 import InstalledVersion from '../schemas/InstalledVersion';
 
 const syncService = class SyncService {
@@ -34,7 +32,6 @@ const syncService = class SyncService {
     // Compare local & server apps
     local_apps.forEach((local_app) => {
       server_apps.forEach((server_app) => {
-        console.log(server_app);
         const app_name = this.convertAppName(server_app.name);
 
         // Remove match from update array
@@ -132,7 +129,6 @@ const syncService = class SyncService {
 
 
   convertAppName(app_name) {
-    console.log(app_name);
     return app_name.split(' ').join('-');
   }
 };

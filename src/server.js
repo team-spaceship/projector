@@ -12,7 +12,9 @@ import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
 const app = express();
+
 const serv = require('http').Server(app);
+const io = require('socket.io')(serv, {});
 
 app.set('trust proxy');
 
@@ -50,7 +52,6 @@ SyncRoutes.create(app);
 
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
-const io = require('socket.io')(serv, {});
 WebsocketServer.create(io);
 
 // enable cors
