@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import SyncRoutes from "./routes/syncRoutes";
+import SettingRoutes from "./routes/settingRoutes";
 
 const MongoStore = connectMongo(session);
 
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 SyncRoutes.create(app);
+SettingRoutes.create(app);
 
 app.use(express.static(__dirname + '/../react-ui/build'));
 
