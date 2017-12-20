@@ -12,8 +12,8 @@ const settingService = class settingService {
     });
   }
 
-  async createAppSettings(fileContent) {
-    await fs.writeFile('./src/settings/hodor.json', JSON.stringify(fileContent), (err) => {
+  async createAppSettings(fileContent, name) {
+    await fs.writeFile('./src/settings/' + name + '.json', JSON.stringify(fileContent), (err) => {
       if (err) throw err;
       console.log("The file was succesfully saved!");
     }); 

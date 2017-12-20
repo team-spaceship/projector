@@ -21,10 +21,11 @@ class SettingForm extends Component {
   async getSettings() {
     const settings = await this.SettingService.getAppSettings(this.props.name);
 
-    
-    this.setState({
-      settings,
-    });
+    if (settings) {
+      this.setState({
+        settings,
+      });
+    }
   }
 
   async postSettings() {

@@ -23,7 +23,11 @@ const settingController = class SettingController {
   }
 
   createAppSettings(req, res) {
-    settingService.createAppSettings(req.body).then(
+    let name = req.url.split("/");
+    [name] = [name.slice(-1)[0]];
+    console.log(req.body);
+    console.log(name);
+    settingService.createAppSettings(req.body, name).then(
       (result) => {
         res.json(result);
       },
