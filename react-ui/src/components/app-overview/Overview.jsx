@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import AppService from '../../services/appService';
 import AppCard from '../app-card/AppCard';
 import SearchBar from '../search/SearchBar';
-import './Overview.css';
+import './Overview.css'; 
+import WebsocketService from '../../services/websocketService';
 
 class Overview extends Component {
-
   constructor(props) {
     super(props);
     
     this.AppService = new AppService();
     this.state = {
       apps: [],
-      selectedApp: null,
+      activeAppId: null,
     };
     
     this.searchApps = this.searchApps.bind(this);
+    this.setActiveApp = this.setActiveApp.bind(this);
+    this.WebsocketService = new WebsocketService();
 
     // Retrieve all apps.
     this.getApps();
+  }
+
+  onAppSelect(id) {
+    this.props.history.push('/app/' + id + '/settings');
   }
   
   async getApps() {
@@ -30,10 +36,13 @@ class Overview extends Component {
     });
   }
 
-  onAppSelect = (id) => {
-    this.props.history.push('/app/' + id +'/settings');
+  setActiveApp(name, id) {
+    this.setState({
+      activeAppId: id,
+    });
+    this.WebsocketService.setActiveApp(name);
   }
-
+  
   async searchApps(query) {
     const apps = await this.AppService.searchApps(query);
     
@@ -45,7 +54,7 @@ class Overview extends Component {
   renderApps(apps) {
     if (apps && apps.length > 0) {
       return apps.map(app => (
-        <AppCard key={app._id} app={app} onAppSelect={this.onAppSelect} />
+        <AppCard key={app._id} app={app} activeAppId={this.state.activeAppId} onAppSelect={this.onAppSelect} setActiveApp={this.setActiveApp} />
       ));
     } else return <p className="no-search-result">No apps found.</p>;
   }
