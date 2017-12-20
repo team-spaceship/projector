@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import AppSettings from './components/app-settings/AppSettings';
 import ProjectorView from './components/projector-view/ProjectorView';
+import Background from "./components/background/Background";
 
 import NoMatch from "./components/no-match/FourOFour";
 // import registerServiceWorker from './registerServiceWorker';
@@ -20,6 +21,7 @@ ReactDOM.render(
         <Route path="/projector" component={ProjectorView} />
         <Route component={NoMatch} />
       </Switch>
+      <Background />
     </div>
   </Router>
 , document.getElementById('root'));
