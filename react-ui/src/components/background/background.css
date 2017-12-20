@@ -1,0 +1,8 @@
+canvas {
+  width: 100%;
+  position: fixed;
+  top: 50%;
+  z-index: -1;
+  left: 0;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #020e32 0%, #03183c 45%, #032848 70%, #0591a0 120%); }
