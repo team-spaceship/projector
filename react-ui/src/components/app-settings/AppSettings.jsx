@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppHeader from './AppHeader';
 import AppService from '../../services/appService';
+import SettingsForm from './SettingsForm';
 import './appsettings.css';
 
 class AppSettings extends Component {
@@ -38,6 +39,7 @@ class AppSettings extends Component {
               <p>
                 {this.state.app.description}
               </p>
+              <SettingsForm name={this.state.app.name} />
             </div>
           </div>
         </div>

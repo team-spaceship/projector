@@ -6,6 +6,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import SyncRoutes from "./routes/syncRoutes";
+import SettingRoutes from "./routes/settingRoutes";
 import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 SyncRoutes.create(app);
+SettingRoutes.create(app);
 
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
