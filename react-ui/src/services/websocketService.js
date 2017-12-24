@@ -15,7 +15,15 @@ export default class WebsocketService {
 
   projectorViewInit(callback, scope) {
     this.socket.on('renderApp', (data) => {
-      callback(data, scope);
+      callback('render', data, scope);
     });
+
+    this.socket.on('commandProjector', (command) => {
+      callback('action', command, scope);
+    });
+  }
+
+  commandProjector(input) {
+    this.socket.emit('projectorCommand', { key: input });
   }
 }

@@ -33,6 +33,9 @@ SyncRoutes.create(app);
 serv.listen(process.env.WEBSOCKET_PORT);
 const io = require('socket.io')(serv, {});
 
+
+// Allow Cross origin (For testing on mobile)
+// io.set('origins', '*:3003');
 WebsocketServer.create(io);
 
 // All remaining requests return the React app, so it can handle routing.

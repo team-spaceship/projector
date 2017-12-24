@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import AppSettings from './components/app-settings/AppSettings';
+import AppControl from './components/app-control/AppControl';
 import ProjectorView from './components/projector-view/ProjectorView';
 // import registerServiceWorker from './registerServiceWorker';
 
@@ -14,6 +15,8 @@ ReactDOM.render(
     <div>
       <Route exact path="/" component={App} />
       <Route path="/app/:id/settings" component={AppSettings} />
+      <Route path="/app/:id/controls" component={AppControl} />
+      <Route path="/app/controls/debug" component={AppControl} />
       <Route path="/projector" component={ProjectorView} />
     </div>
   </Router>
