@@ -1,4 +1,3 @@
-import { authenticated } from '../middleware/passport';
 import syncController from "../controllers/syncController";
 
 export default class SyncRoutes {
