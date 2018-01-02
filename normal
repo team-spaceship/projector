@@ -1,0 +1,1 @@
+ sudo cp ~/.config/lxsession/LXDE-pi/autostart.normal ~/.config/lxsession/LXDE-pi/autostart

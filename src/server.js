@@ -8,6 +8,7 @@ import cors from 'cors';
 
 import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
+import SettingRoutes from "./routes/settingRoutes";
 import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
@@ -49,6 +50,7 @@ const corsOptions = {
 };
 
 SyncRoutes.create(app);
+SettingRoutes.create(app);
 
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
