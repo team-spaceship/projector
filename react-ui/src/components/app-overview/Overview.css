@@ -102,6 +102,11 @@
     background: #030f33;
 }
 
+.btn-sync {
+    margin-top: 25px;
+    float: right;
+}
+
 .app--card .button {
     position: absolute;
     right: 15px;

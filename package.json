@@ -23,6 +23,8 @@
     "localenv": "^0.2.2",
     "mongoose": "^4.12.6",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-node-render": "^0.0.7",
