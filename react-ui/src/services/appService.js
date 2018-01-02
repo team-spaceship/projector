@@ -83,8 +83,8 @@ export default class AppService {
     });
   }
 
-  triggerSync() {
-    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/sync/start`, {
+  triggerSync(id) {
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/sync/start?id=${id}`, {
       credentials: 'include',
       mode: 'cors',
     }).then((response) => {

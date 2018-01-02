@@ -5,15 +5,20 @@ import AppCard from '../app-card/AppCard';
 import SearchBar from '../search/SearchBar';
 import './Overview.css'; 
 import WebsocketService from '../../services/websocketService';
+import UserService from "../../services/userService";
 
 class Overview extends Component {
   constructor(props) {
     super(props);
     
     this.AppService = new AppService();
+    this.UserService = new UserService();
+
     this.state = {
       apps: [],
+      loggedIn: false,
       activeAppId: null,
+      user: {},
     };
     
     this.searchApps = this.searchApps.bind(this);
@@ -29,6 +34,10 @@ class Overview extends Component {
     };
   }
   
+  componentDidMount() {
+    this.checkUserLogin();
+  }
+
   async getApps() {
     const apps = await this.AppService.getInstalledApps();
     
@@ -53,11 +62,47 @@ class Overview extends Component {
   }
 
   async triggerSync() {
-    const synced_apps = await this.AppService.triggerSync();
-
-    // @TODO: show user syncing is complete?
-    console.log(synced_apps);
+    if (this.state.user) {
+      const synced_apps = await this.AppService.triggerSync(this.state.user._id);
+  
+      // @TODO: show user syncing is complete?
+      console.log(synced_apps);
+    }
   }
+
+  async checkUserLogin() {
+    const account_info = await this.UserService.getUserInfo();
+
+    console.log(account_info);
+
+    if (!account_info) {
+      return;
+    }
+
+    this.setState({
+      loggedIn: account_info.loggedIn,
+      user: account_info.user,
+    });
+  }  
+
+  showProfile() {
+    if (this.state.loggedIn) {
+      return (
+        <button className="btn btn-sync" onClick={this.triggerSync} >
+          Trigger Sync
+        </button>
+      );
+    } else {
+      return (
+        <a
+          className="nav-link"
+          href={process.env.REACT_APP_PROJECTOR_API + "/v1/sync"}
+        >
+          Login / Register
+        </a>
+      );
+    }
+  }  
   
   renderApps(apps) {
     if (apps && apps.length > 0) {
@@ -75,9 +120,7 @@ class Overview extends Component {
             List of applications
           </p>
           <div className="col-md-5">
-            <button className="btn btn-sync" onClick={this.triggerSync} >
-              Trigger Sync
-            </button>
+            {this.showProfile()}
           </div>
           <div className="app--overview-search col-md-12">
             <SearchBar callBack={this.searchApps} />

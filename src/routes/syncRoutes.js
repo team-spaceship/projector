@@ -6,6 +6,6 @@ export default class SyncRoutes {
   * Create the sync routes.
   */
   static create(router) {
-    router.get('/v1/sync/start', authenticated, syncController.sync);
+    router.get('/v1/sync/start', syncController.sync);
   }
 }

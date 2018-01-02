@@ -9,11 +9,21 @@ const syncController = class SyncController {
   * @param next
   */
   sync(req, res) {
-    if (!req.user) {
+    let user_id = null;
+
+    if (req.user && req.user._id.length) {
+      user_id = req.user._id;
+    }
+
+    if (req.query && req.query.id.length) {
+      user_id = req.query.id;
+    }
+    
+    if (!user_id) {
       return res.status(500).send({ message: "Please provide a user to start syncing" });
     }
 
-    syncService.sync(req.user._id).then(
+    syncService.sync(user_id).then(
       (result) => {
         res.json(result);
       },
