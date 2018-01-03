@@ -2,6 +2,7 @@
 /node_modules
 /react-ui/node_modules
 /react-ui/build
+/react-ui/apps
 
 # misc
 .DS_Store
