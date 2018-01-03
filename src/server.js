@@ -5,6 +5,7 @@ import connectMongo from 'connect-mongo';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import path from 'path';
 
 import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
@@ -35,6 +36,8 @@ const whitelist = [
   'http://localhost:3001',
   'http://localhost:3002',
   'http://localhost:3003',
+  'http://raspberrypi.local:3002',
+  'projector-app-store.herokuapp.com',
 ];
 
 const corsOptions = {
@@ -64,10 +67,10 @@ app.use(passport);
 
 // All remaining requests return the React app, so it can handle routing.
 
-app.use(express.static(__dirname + '/../react-ui/build'));
+app.use(express.static(path.join(__dirname, '/../react-ui/build')));
 
 app.get('*', (request, response) => {
-  response.sendFile(__dirname + '/../react-ui/build/index.html');
+  response.sendFile(path.join(__dirname, '/../react-ui/build/index.html'));
 });
 
 export default app;
