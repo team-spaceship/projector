@@ -1,0 +1,5 @@
+nano start_chromium.sh
+# Run browser after boot to desktop
+/bin/sleep 3
+sudo -u pi chromium-browser --kiosk --incognito http://localhost:3002/projector &
+# End of script
