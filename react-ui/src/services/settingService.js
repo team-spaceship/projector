@@ -17,9 +17,9 @@ export default class SettingService {
 
   postAppSettings(name, state) {
     return fetch(`${process.env.REACT_APP_PROJECTOR_API}/settings/` + name, {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
+      headers: {
+        'Content-Type': 'text/json',
+      },
       method: "POST",
       body: JSON.stringify(state),
     }).then((response) => {
