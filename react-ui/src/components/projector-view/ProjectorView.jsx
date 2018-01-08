@@ -31,7 +31,11 @@ class ProjectorView extends Component {
     /* eslint enable */
     
     // Import the component
-    const component = require(`../../apps/${data.app}`).default;
+    const path = `../../apps/${data.app}`;
+
+    console.log(path);
+
+    const component = require(path).default;
 
     scope.setState({ 
       component,
