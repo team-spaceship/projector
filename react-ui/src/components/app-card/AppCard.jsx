@@ -44,7 +44,7 @@ class AppCard extends Component {
           <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app.version._id); }}>
             Settings
           </button>
-          <button className="button" href="#" onClick={() => { this.props.setActiveApp(this.props.app.name, this.props.app._id); }}>
+          <button className="button" href="#" onClick={() => { this.props.setActiveApp(latest_version.app.name, latest_version.app._id); }}>
             { this.props.activeAppId === this.props.app._id ? "Activated" : "Activate" }
           </button>
         </div>
