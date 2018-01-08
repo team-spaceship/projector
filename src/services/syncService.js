@@ -29,7 +29,7 @@ const syncService = class SyncService {
   }
 
   /**
-  * Returns all orders
+  * Sync apps van server naar lokale omgeving
   *
   * @returns [{orders}]
   */
@@ -122,16 +122,18 @@ const syncService = class SyncService {
    * @param path, the local filepath where the downloaded remote file is streamed into
    */
   async downloadFromUrlToFile(url, filePath) {
+    console.log(url);
     return new Promise((resolve, reject) => {
       const writeStream = fs.createWriteStream(filePath);
       request(url).pipe(writeStream)
         .on('end', () => {
+          console.log("resolved file... @TODO: check if file is not HTML. BUT A ZIP");
           resolve();
         }).on('error', (err) => {
           reject(err);
         });
     });
-  }  
+  }
 
   async unzipApp(app, local_zip, app_folder) {
     try {
