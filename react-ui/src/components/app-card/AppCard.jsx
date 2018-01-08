@@ -41,7 +41,7 @@ class AppCard extends Component {
           {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
           <span className="app--card-type">Application Type</span>
 
-          <button className="button" href="#" onClick={() => { this.props.onAppSelect(this.props.app.version._id); }}>
+          <button className="button1" href="#" onClick={() => { this.props.onAppSelect(latest_version.app._id); }}>
             Settings
           </button>
           <button className="button" href="#" onClick={() => { this.props.setActiveApp(this.props.app.name, this.props.app._id); }}>

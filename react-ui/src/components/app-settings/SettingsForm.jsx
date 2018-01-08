@@ -54,7 +54,7 @@ class SettingForm extends Component {
 
   async getSettings() {
     const settings = await this.SettingService.getAppSettings(this.props.name);
-
+    
     if (settings) {
       this.setState({
         settings,
@@ -94,15 +94,15 @@ class SettingForm extends Component {
     return data.map(group => {
       if (group.htmlControlType === "select") {
         return (
-          <div className="form-group">
+          <div className="form-group" key={group.indexId}>
             <label htmlFor={group.abrvIndexName} className={"col-sm-2 " + group.cssClassName}>
               {group.indexDesc}
             </label>
 
             <div className="col-sm-8">
               <select className="form-control" name={group.abrvIndexName} value={group.answer} id={group.indexId} onChange={this.handleInputChange}>
-                {group.options.map(language => {
-                  return <option value={language}>{language}</option>;
+                {group.options.map((language, i) => {
+                  return <option key={i} value={language}>{language}</option>;
                  })}
               </select>
             </div>
@@ -110,7 +110,7 @@ class SettingForm extends Component {
         );
       } else {
         return (
-          <div className="form-group">
+          <div className="form-group" key={group.indexId}>
             <label htmlFor={group.abrvIndexName} className={"col-sm-2 " + group.cssClassName}>
               {group.indexDesc}
             </label>
