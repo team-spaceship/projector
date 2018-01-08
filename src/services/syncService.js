@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import path from 'path';
 import request from 'request';
 import AdmZip from 'adm-zip';
+import shell from 'shelljs';
 import InstalledVersion from '../schemas/InstalledVersion';
 
 /* eslint-disable */
@@ -84,8 +85,16 @@ const syncService = class SyncService {
       /* eslint-disable */
       for (let app of apps) {
         console.time(`Downloading_${app.version.app.name}`);
-        const downloaded_app = await this.download(app);
-        downloaded_apps.push(downloaded_app);
+        // const downloaded_app = await this.download(app);
+        const path_to_download_script = path.join(`${this.base_path}/download-app`);
+
+        if (await shell.exec(`"${path_to_download_script}" ${app.version.version_path}`).code !== 0) {
+          shell.echo('Error: download app failed');
+          shell.exit(1);
+        }
+
+        downloaded_apps.push(app);
+
         console.log(`Downloaded: "${app.version.app.name}" in: `)
         console.timeEnd(`Downloading_${app.version.app.name}`);
       }
