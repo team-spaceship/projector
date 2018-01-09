@@ -1,4 +1,14 @@
 {
-  "presets": ["env"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "stage-0"
+  ],
   "plugins": ["babel-polyfill","transform-async-to-generator"]
 }

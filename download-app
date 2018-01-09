@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ -z "$1" ]
+    then
+	echo "Please provide file name (app-name/version/version.zip)"
+	exit
+fi
+filename=`basename $1`
+cd react-ui/apps/tmp
+wget https://projector-app-store.herokuapp.com/download/$1 -O $filename
+cd ..
+unzip -o tmp/$filename
+unzip -o $filename
+rm $filename

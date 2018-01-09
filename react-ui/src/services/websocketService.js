@@ -4,8 +4,10 @@ export default class WebsocketService {
   constructor(isProjectorView) {
     if (isProjectorView) {
       this.socket = socket(process.env.REACT_APP_PROJECTOR_WEBSOCKET_SERVER, { query: 'projector=true' });
+      // If process.env.REACT_APP_PROJECTOR_WEBSOCKET_SERVER doesn't work use: http://localhost:3004 but don't commit this.
     } else {
       this.socket = socket(process.env.REACT_APP_PROJECTOR_WEBSOCKET_SERVER);
+      // If process.env.REACT_APP_PROJECTOR_WEBSOCKET_SERVER doesn't work use: http://localhost:3004 but don't commit this.
     }
   }
 

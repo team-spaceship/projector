@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import AppSettings from './components/app-settings/AppSettings';
 import AppControl from './components/app-control/AppControl';
 import ProjectorView from './components/projector-view/ProjectorView';
+import Background from "./components/background/Background";
+
+import NoMatch from "./components/no-match/FourOFour";
 // import registerServiceWorker from './registerServiceWorker';
 
 
@@ -13,13 +16,17 @@ import ProjectorView from './components/projector-view/ProjectorView';
 ReactDOM.render(
   <Router>
     <div>
-      <Route exact path="/" component={App} />
-      <Route path="/app/:id/settings" component={AppSettings} />
-      <Route path="/app/:id/controls" component={AppControl} />
-      <Route path="/app/controls/debug" component={AppControl} />
-      <Route path="/projector" component={ProjectorView} />
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/app/:id/settings" component={AppSettings} />
+        <Route path="/app/:id/controls" component={AppControl} />
+        <Route path="/app/controls/debug" component={AppControl} />
+        <Route path="/projector" component={ProjectorView} />
+        <Route component={NoMatch} />
+      </Switch>
+      <Background />
     </div>
   </Router>
-, document.getElementById('root'));
+, document.getElementById('root')); 
 /* eslint-enable */
 // registerServiceWorker();

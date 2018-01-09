@@ -1,0 +1,5 @@
+echo "Be patient, this could take a while"
+git pull
+yarn run build
+cd react-ui
+yarn run build
