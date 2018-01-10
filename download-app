@@ -16,3 +16,5 @@ src=`unzip -Z1 /tmp/$filename | head -1`
 dst=`echo $1 | grep -o [^/]*`
 mv $src $dst
 rm /tmp/$filename
+cd react-ui
+yarn run build
