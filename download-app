@@ -5,9 +5,11 @@ if [ -z "$1" ]
 	exit
 fi
 filename=`basename $1`
-cd react-ui/apps/tmp
-wget https://projector-app-store.herokuapp.com/download/$1 -O $filename
-cd ..
-unzip -o tmp/$filename
-unzip -o $filename
+directory=`pwd`
+cd /tmp
+wget https://projector-app-store.herokuapp.com/download/$1 -O /tmp/download.zip
+unzip -o /tmp/download.zip
+rm /tmp/download.zip
+cd "$directory/react-ui/src/apps"
+unzip -o /tmp/$filename
 rm $filename

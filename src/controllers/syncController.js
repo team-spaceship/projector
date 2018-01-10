@@ -15,7 +15,7 @@ const syncController = class SyncController {
       user_id = req.user._id;
     }
 
-    if (req.query && req.query.id.length) {
+    if (req.query && req.query.id && req.query.id.length) {
       user_id = req.query.id;
     }
     

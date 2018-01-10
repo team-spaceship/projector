@@ -5,10 +5,7 @@ import WebsocketService from '../../services/websocketService';
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      component: require(`../../apps/Sneek`).default,
-    };
+    this.state = {};
 
     this.AppService = new AppService();
     this.WebsocketService = new WebsocketService(true);
