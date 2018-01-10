@@ -12,4 +12,7 @@ unzip -o /tmp/download.zip
 rm /tmp/download.zip
 cd "$directory/react-ui/src/apps"
 unzip -o /tmp/$filename
-rm $filename
+src=`unzip -Z1 /tmp/$filename | head -1`
+dst=`echo $1 | grep -o [^/]*`
+mv $src $dst
+rm /tmp/$filename
