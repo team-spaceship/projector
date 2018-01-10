@@ -1,15 +1,15 @@
 export default class WebsocketServer {
-  /**
-  * Create the order routes.
-  */
-
   static create(io) {
-    const sockets = [];
     io.sockets.on('connection', (socket) => {
-      sockets.push(socket);
-      
+      console.log('Connection!: ', socket.id); 
+      // Listen for active app events.
       socket.on('setActiveApp', (data) => {
         io.sockets.emit('renderApp', { app: data.app });
+      });
+
+      // Listen for control events.
+      socket.on('projectorCommand', (input) => {
+        io.sockets.emit('commandProjector', input);
       });
     });
   }  

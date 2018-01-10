@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
@@ -7,13 +6,15 @@ class ProjectorView extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {};
+    this.state = {
+      component: require(`../../apps/Sneek`).default,
+    };
 
     this.AppService = new AppService();
     this.WebsocketService = new WebsocketService(true);
 
-    // listen to renderApp socket event.
-    this.WebsocketService.projectorViewInit(this.renderActiveApp, this);
+    // listen to socket events.
+    this.WebsocketService.projectorViewInit(this.handleProjectorCommands, this);
     this.renderActiveApp = this.renderActiveApp.bind(this);
   }
   
@@ -21,6 +22,33 @@ class ProjectorView extends Component {
 
   }
   
+  handleProjectorCommands(action, command, scope) {
+    if (action === 'render') {
+      scope.renderActiveApp(command, scope);
+    } else if (action === 'action' && scope.state.component) {
+      switch (command.key) {
+        default: 
+          console.log('Not a valid command.');
+          break;
+        case 'left':
+          try { scope.state.component.onLeftKeyPress(); } catch (e) { console.log("Left key is not implemented."); }
+          break;
+        case 'right':
+          try { scope.state.component.onRightKeyPress(); } catch (e) { console.log("Right key is not implemented."); }
+          break;
+        case 'up':
+          try { scope.state.component.onUpKeyPress(); } catch (e) { console.log("Up key is not implemented."); }
+          break;
+        case 'down':
+          try { scope.state.component.onDownKeyPress(); } catch (e) { console.log("Down key is not implemented."); }
+          break;
+        case 'enter':
+          try { scope.state.component.onEnterKeyPress(); } catch (e) { console.log("Enter key is not implemented."); }
+          break;
+      }
+    }
+  }
+
   renderActiveApp(data, scope) {
     console.log(data.app);
     /* eslint-disable */
@@ -41,7 +69,7 @@ class ProjectorView extends Component {
   render() {
     if (this.state.component) {
       return (
-        <this.state.component />
+        <this.state.component ref={instance => { this.state.component = instance; }} />
       );
     } else {
       return <p>You haven't opened any app yet. Go to your mobile app and select your desired app.</p>;

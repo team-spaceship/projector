@@ -16,7 +16,6 @@ const MongoStore = connectMongo(session);
 const app = express();
 
 const serv = require('http').Server(app);
-const io = require('socket.io')(serv, {});
 
 app.set('trust proxy');
 
@@ -55,6 +54,7 @@ const corsOptions = {
 SyncRoutes.create(app);
 SettingRoutes.create(app);
 
+const io = require('socket.io')(serv, {});
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
 WebsocketServer.create(io);
