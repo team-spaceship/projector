@@ -7,13 +7,13 @@ fi
 filename=`basename $1`
 directory=`pwd`
 cd /tmp
-wget https://projector-app-store.herokuapp.com/download/$1 -O /tmp/download.zip
-unzip -o /tmp/download.zip
-rm /tmp/download.zip
+wget https://projector-app-store.herokuapp.com/download/$1 -O download.zip
+unzip -o download.zip
+rm download.zip
 cd "$directory/react-ui/src/apps"
 unzip -o /tmp/$filename
 src=`unzip -Z1 /tmp/$filename | head -1`
-dst=`echo $1 | grep -o [^/]*`
+dst=`echo $1 | grep -o ^[^/]*`
 rm -rf $dst
 mv $src $dst
 rm /tmp/$filename
