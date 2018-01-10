@@ -14,7 +14,8 @@ cd "$directory/react-ui/src/apps"
 unzip -o /tmp/$filename
 src=`unzip -Z1 /tmp/$filename | head -1`
 dst=`echo $1 | grep -o [^/]*`
+rm -rf $dst
 mv $src $dst
 rm /tmp/$filename
-cd react-ui
+cd "$directory/react-ui/"
 yarn run build
