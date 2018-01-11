@@ -15,6 +15,25 @@ export default class AppService {
     });
   }
 
+  getAppView(appName) {
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/view/${appName}`).then((response) => {
+      return response.json();
+    }).then((json) => {
+      if (json.error === 404) {
+        console.error("Could not find app");
+        return [];
+      }
+
+      if (!json.html) {
+        console.error("No HTML code found");
+      }
+      console.log(json);
+      return json;
+    }).catch((error) => {
+      console.error(error);
+    });
+  }  
+
   getInstalledApps() {
     return fetch(`${process.env.REACT_APP_STORE_API}/installed-apps`, {
       credentials: 'include',

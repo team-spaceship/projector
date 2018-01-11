@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import renderHTML from 'react-render-html';
 import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      component: "<h1 style='text-align: center; padding: 100px;'>Please select an app</h1>",
+    };
 
     this.AppService = new AppService();
     this.WebsocketService = new WebsocketService(true);
@@ -13,6 +16,8 @@ class ProjectorView extends Component {
     // listen to socket events.
     this.WebsocketService.projectorViewInit(this.handleProjectorCommands, this);
     this.renderActiveApp = this.renderActiveApp.bind(this);
+    
+    this.renderActiveApp("Clock", this);
   }
   
   componentDidMount() {
@@ -54,22 +59,27 @@ class ProjectorView extends Component {
       document.styleSheets[document.styleSheets.length - 1].disabled = true;
     }
     /* eslint enable */
-    
-    // Import the component
-    const component = require(`../../apps/${data.app}`).default;
-
-    scope.setState({ 
-      component,
+    this.AppService.getAppView(data.app).then( (json) => {
+      if (json && json.html) {
+        scope.setState({
+          component: json.html,
+        });
+      } else {
+        scope.setState({
+          component: "<h1 style='text-align: center; padding: 100px;'>App not found</h1>",
+        });        
+      }
     });
   }
   
   render() {
+    console.log(this.state.component);
+    
     if (this.state.component) {
-      return (
-        <this.state.component ref={instance => { this.state.component = instance; }} />
+      return (<div>
+          {renderHTML(this.state.component)}
+        </div>
       );
-    } else {
-      return <p>You haven't opened any app yet. Go to your mobile app and select your desired app.</p>;
     }
   }
 }

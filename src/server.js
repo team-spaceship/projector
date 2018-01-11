@@ -10,6 +10,7 @@ import path from 'path';
 import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
 import SettingRoutes from "./routes/settingRoutes";
+import appProviderService from "./services/appProviderService";
 import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
@@ -53,6 +54,8 @@ const corsOptions = {
 
 SyncRoutes.create(app);
 SettingRoutes.create(app);
+
+app.get('/view/:app', appProviderService.chooseApp);
 
 const io = require('socket.io')(serv, {});
 // Create Websocket Server.
