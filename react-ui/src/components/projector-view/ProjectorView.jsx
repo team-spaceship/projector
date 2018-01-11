@@ -17,7 +17,8 @@ class ProjectorView extends Component {
     this.WebsocketService.projectorViewInit(this.handleProjectorCommands, this);
     this.renderActiveApp = this.renderActiveApp.bind(this);
     
-    this.renderActiveApp("Clock", this);
+    // Uncomment for test purpose
+    this.renderActiveApp({ app: "Clock app HTML" }, this);
   }
   
   componentDidMount() {
@@ -58,6 +59,7 @@ class ProjectorView extends Component {
       // Hier moeten we iets slims voor verzinnen.
       document.styleSheets[document.styleSheets.length - 1].disabled = true;
     }
+    
     /* eslint enable */
     this.AppService.getAppView(data.app).then( (json) => {
       if (json && json.html) {
@@ -73,8 +75,16 @@ class ProjectorView extends Component {
   }
   
   render() {
-    console.log(this.state.component);
-    
+    const html = renderHTML(this.state.component);
+
+    Object.entries(html).forEach(
+      ([key, value]) => {
+        if (value && value.type == "script") {
+          this.evalScript(value.props.dangerouslySetInnerHTML)
+        }
+      }
+    );
+
     if (this.state.component) {
       return (<div>
           {renderHTML(this.state.component)}
@@ -82,6 +92,38 @@ class ProjectorView extends Component {
       );
     }
   }
+
+  nodeName(elem, name) {
+    return elem.nodeName && elem.nodeName.toUpperCase() ===
+      name.toUpperCase();
+  };
+
+  evalScript(elem) {
+    var data = (elem.text || elem.textContent || elem.innerHTML || elem.__html || ""),
+      head = document.getElementsByTagName("head")[0] ||
+      document.documentElement,
+      script = document.createElement("script");
+
+    eval(data);
+
+    setTimeout(function() {
+      if(typeof init == "function") {
+        init();
+      }
+    }, 100)
+
+    script.type = "text/javascript";
+    try {
+      // doesn't work on ie...
+      script.appendChild(document.createTextNode(data));
+    } catch (e) {
+      // IE has funky script nodes
+      script.text = data;
+    }
+
+    head.insertBefore(script, head.firstChild);
+    head.removeChild(script);
+  };
 }
 
 export default ProjectorView;

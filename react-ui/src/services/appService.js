@@ -16,19 +16,11 @@ export default class AppService {
   }
 
   getAppView(appName) {
-    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/view/${appName}`).then((response) => {
-      return response.json();
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/view/${appName}`, { mode: 'cors' }).then((response) => {
+      return response.text();
     }).then((json) => {
-      if (json.error === 404) {
-        console.error("Could not find app");
-        return [];
-      }
-
-      if (!json.html) {
-        console.error("No HTML code found");
-      }
       console.log(json);
-      return json;
+      return JSON.parse(json);
     }).catch((error) => {
       console.error(error);
     });

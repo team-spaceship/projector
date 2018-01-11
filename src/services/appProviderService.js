@@ -13,7 +13,7 @@ const appProviderService = class AppProviderService {
 
       res.json({
         succcess: true,
-        html: html,
+        html,
       });
     } catch (e) {
       console.log(e);
