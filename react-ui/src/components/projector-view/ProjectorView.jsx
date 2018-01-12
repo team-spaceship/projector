@@ -52,65 +52,26 @@ class ProjectorView extends Component {
     }
   }
 
-  renderActiveApp(data, scope) {
-    console.log(data.app);
-    /* eslint-disable */
-    if (scope.state.component) {
-      // Hier moeten we iets slims voor verzinnen.
-      document.styleSheets[document.styleSheets.length - 1].disabled = true;
-    }
-    
-    /* eslint enable */
-    this.AppService.getAppView(data.app).then( (json) => {
-      if (json && json.html) {
-        scope.setState({
-          component: json.html,
-        });
-      } else {
-        scope.setState({
-          component: "<h1 style='text-align: center; padding: 100px;'>App not found</h1>",
-        });        
-      }
-    });
-  }
-  
-  render() {
-    const html = renderHTML(this.state.component);
-
-    Object.entries(html).forEach(
-      ([key, value]) => {
-        if (value && value.type == "script") {
-          this.evalScript(value.props.dangerouslySetInnerHTML)
-        }
-      }
-    );
-
-    if (this.state.component) {
-      return (<div>
-          {renderHTML(this.state.component)}
-        </div>
-      );
-    }
-  }
-
   nodeName(elem, name) {
-    return elem.nodeName && elem.nodeName.toUpperCase() ===
-      name.toUpperCase();
+    return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
   };
 
   evalScript(elem) {
-    var data = (elem.text || elem.textContent || elem.innerHTML || elem.__html || ""),
-      head = document.getElementsByTagName("head")[0] ||
-      document.documentElement,
-      script = document.createElement("script");
+    const data = (elem.text || elem.textContent || elem.innerHTML || elem.__html || "");
 
+    /* eslint-disable */
+    const head = document.getElementsByTagName("head")[0] || document.documentElement;
+    const script = document.createElement("script");    
+    
     eval(data);
 
-    setTimeout(function() {
-      if(typeof init == "function") {
+    setTimeout(function () {
+      if (typeof init == "function") {
         init();
       }
-    }, 100)
+    }, 100);
+
+    /* eslint-enable */
 
     script.type = "text/javascript";
     try {
@@ -121,9 +82,46 @@ class ProjectorView extends Component {
       script.text = data;
     }
 
+    /* eslint-enable */
+
     head.insertBefore(script, head.firstChild);
     head.removeChild(script);
-  };
+  }
+
+  renderActiveApp(data, scope) {
+    this.AppService.getAppView(data.app).then((json) => {
+      if (json && json.html) {
+        scope.setState({
+          component: json.html,
+        });
+      } else {
+        scope.setState({
+          component: "<h1 style='text-align: center; padding: 100px;'>App not found</h1>",
+        });
+      }
+    });
+  }
+  
+  render() {
+    const html = renderHTML(this.state.component);
+
+    Object.entries(html).forEach(([key, value]) => {
+      if (value && value.type === "script") {
+        console.log(key);
+        this.evalScript(value.props.dangerouslySetInnerHTML);
+      }
+    });
+
+    console.log(this.state.component);
+
+    if (this.state.component) {
+      return (
+        <div>
+          {renderHTML(this.state.component)}
+        </div>
+      );
+    }
+  }
 }
 
 export default ProjectorView;
