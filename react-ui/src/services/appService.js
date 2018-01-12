@@ -15,6 +15,17 @@ export default class AppService {
     });
   }
 
+  getAppView(appName) {
+    return fetch(`${process.env.REACT_APP_PROJECTOR_API}/view/${appName}`, { mode: 'cors' }).then((response) => {
+      return response.text();
+    }).then((json) => {
+      console.log(json);
+      return JSON.parse(json);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }  
+
   getInstalledApps() {
     return fetch(`${process.env.REACT_APP_STORE_API}/installed-apps`, {
       credentials: 'include',

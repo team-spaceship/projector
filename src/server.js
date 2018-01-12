@@ -10,6 +10,7 @@ import path from 'path';
 import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
 import SettingRoutes from "./routes/settingRoutes";
+import appProviderService from "./services/appProviderService";
 import WebsocketServer from './websocket-server';
 
 const MongoStore = connectMongo(session);
@@ -30,6 +31,7 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 const whitelist = [
   'http://localhost:3000',
   'http://localhost:3001',
@@ -51,17 +53,19 @@ const corsOptions = {
   },
 };
 
+// enable cors
+app.use(cors(corsOptions));
+app.options('*', cors());
+
 SyncRoutes.create(app);
 SettingRoutes.create(app);
+
+app.get('/v1/view/:app', appProviderService.chooseApp);
 
 const io = require('socket.io')(serv, {});
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
 WebsocketServer.create(io);
-
-// enable cors
-app.use(cors(corsOptions));
-app.options('*', cors());
 
 app.use(passport);
 

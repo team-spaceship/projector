@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import renderHTML from 'react-render-html';
 import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      component: "<h1 style='text-align: center; padding: 100px;'>Please select an app</h1>",
+    };
 
     this.AppService = new AppService();
     this.WebsocketService = new WebsocketService(true);
@@ -13,6 +16,9 @@ class ProjectorView extends Component {
     // listen to socket events.
     this.WebsocketService.projectorViewInit(this.handleProjectorCommands, this);
     this.renderActiveApp = this.renderActiveApp.bind(this);
+    
+    // Uncomment for test purpose
+    this.renderActiveApp({ app: "Clock app HTML" }, this);
   }
   
   componentDidMount() {
@@ -53,25 +59,71 @@ class ProjectorView extends Component {
       // Hier moeten we iets slims voor verzinnen.
       document.styleSheets[document.styleSheets.length - 1].disabled = true;
     }
-    /* eslint enable */
     
-    // Import the component
-    const component = require(`../../apps/${data.app}`).default;
-
-    scope.setState({ 
-      component,
+    /* eslint enable */
+    this.AppService.getAppView(data.app).then( (json) => {
+      if (json && json.html) {
+        scope.setState({
+          component: json.html,
+        });
+      } else {
+        scope.setState({
+          component: "<h1 style='text-align: center; padding: 100px;'>App not found</h1>",
+        });        
+      }
     });
   }
   
   render() {
+    const html = renderHTML(this.state.component);
+
+    Object.entries(html).forEach(
+      ([key, value]) => {
+        if (value && value.type == "script") {
+          this.evalScript(value.props.dangerouslySetInnerHTML)
+        }
+      }
+    );
+
     if (this.state.component) {
-      return (
-        <this.state.component ref={instance => { this.state.component = instance; }} />
+      return (<div>
+          {renderHTML(this.state.component)}
+        </div>
       );
-    } else {
-      return <p>You haven't opened any app yet. Go to your mobile app and select your desired app.</p>;
     }
   }
+
+  nodeName(elem, name) {
+    return elem.nodeName && elem.nodeName.toUpperCase() ===
+      name.toUpperCase();
+  };
+
+  evalScript(elem) {
+    var data = (elem.text || elem.textContent || elem.innerHTML || elem.__html || ""),
+      head = document.getElementsByTagName("head")[0] ||
+      document.documentElement,
+      script = document.createElement("script");
+
+    eval(data);
+
+    setTimeout(function() {
+      if(typeof init == "function") {
+        init();
+      }
+    }, 100)
+
+    script.type = "text/javascript";
+    try {
+      // doesn't work on ie...
+      script.appendChild(document.createTextNode(data));
+    } catch (e) {
+      // IE has funky script nodes
+      script.text = data;
+    }
+
+    head.insertBefore(script, head.firstChild);
+    head.removeChild(script);
+  };
 }
 
 export default ProjectorView;
