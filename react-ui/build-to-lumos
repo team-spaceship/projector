@@ -1,0 +1,5 @@
+echo "Run this in your local environment !! NOT THE Raspberry Pi !!"
+mv .env.local .tmpenvlocal
+yarn run build
+mv .tmpenvlocal .env.local
+rsync -r build/ pi@raspberrypi.local:/home/pi/Desktop/projector/react-ui/build
