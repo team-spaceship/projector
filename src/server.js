@@ -10,6 +10,7 @@ import path from 'path';
 import passport from './middleware/passport';
 import SyncRoutes from "./routes/syncRoutes";
 import SettingRoutes from "./routes/settingRoutes";
+import CommandRoutes from "./routes/commandRoutes";
 import appProviderService from "./services/appProviderService";
 import WebsocketServer from './websocket-server';
 
@@ -59,6 +60,7 @@ app.options('*', cors());
 
 SyncRoutes.create(app);
 SettingRoutes.create(app);
+CommandRoutes.create(app);
 
 app.get('/v1/view/:app', appProviderService.chooseApp);
 
