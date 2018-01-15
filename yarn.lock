@@ -12,10 +12,6 @@
   version "4.14.91"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.91.tgz#794611b28056d16b5436059c6d800b39d573cd3a"
 
-"@types/node@*":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
-
 "@types/node@^8.0.32":
   version "8.5.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
@@ -3183,12 +3179,6 @@ parse-ms@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parse-ms/-/parse-ms-1.0.1.tgz#56346d4749d78f23430ca0c713850aef91aa361d"
 
-parse5@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.3.tgz#042f792ffdd36851551cf4e9e066b3874ab45b5c"
-  dependencies:
-    "@types/node" "*"
-
 parseqs@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/parseqs/-/parseqs-0.0.5.tgz#d5208a3738e46766e291ba2ea173684921a8b89d"
@@ -3421,10 +3411,6 @@ re-emitter@^1.0.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/re-emitter/-/re-emitter-1.1.3.tgz#fa9e319ffdeeeb35b27296ef0f3d374dac2f52a7"
 
-react-attr-converter@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-attr-converter/-/react-attr-converter-0.3.1.tgz#4a2abf6d907b7ddae4d862dfec80e489ce41ad6e"
-
 react-dom@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
@@ -3442,13 +3428,6 @@ react-particles-js@^2.1.0:
     "@types/node" "^8.0.32"
     "@types/react" "^16.0.8"
     lodash.clonedeep "^4.5.0"
-
-react-render-html@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/react-render-html/-/react-render-html-0.6.0.tgz#1af51d859ed75474435a1c65c293a48e12c36627"
-  dependencies:
-    parse5 "^3.0.2"
-    react-attr-converter "^0.3.1"
 
 react@^16.2.0:
   version "16.2.0"

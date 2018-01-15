@@ -18,7 +18,7 @@ class ProjectorView extends Component {
     this.renderActiveApp = this.renderActiveApp.bind(this);
     
     // Uncomment for test purpose
-    this.renderActiveApp({ app: "Clock app HTML" }, this);
+    this.renderActiveApp({ app: "Snek" }, this);
   }
   
   componentDidMount() {
@@ -34,27 +34,47 @@ class ProjectorView extends Component {
           console.log('Not a valid command.');
           break;
         case 'left':
-          try { scope.state.component.onLeftKeyPress(); } catch (e) { console.log("Left key is not implemented."); }
+          scope.triggerEvent('projectorOnLeftKey');
           break;
         case 'right':
-          try { scope.state.component.onRightKeyPress(); } catch (e) { console.log("Right key is not implemented."); }
+          scope.triggerEvent('projectorOnRightKey');
           break;
         case 'up':
-          try { scope.state.component.onUpKeyPress(); } catch (e) { console.log("Up key is not implemented."); }
+          scope.triggerEvent('projectorOnUpKey');
           break;
         case 'down':
-          try { scope.state.component.onDownKeyPress(); } catch (e) { console.log("Down key is not implemented."); }
+          scope.triggerEvent('projectorOnDownKey');
           break;
         case 'enter':
-          try { scope.state.component.onEnterKeyPress(); } catch (e) { console.log("Enter key is not implemented."); }
+          scope.triggerEvent('projectorOnEnterKey');
           break;
       }
     }
   }
 
+  triggerEvent(eventName) {
+    let event; // The custom event that will be created
+
+    if (document.createEvent) {
+      event = document.createEvent("HTMLEvents");
+      event.initEvent(eventName, true, true);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+    }
+
+    event.eventName = eventName;
+
+    if (document.createEvent) {
+      document.dispatchEvent(event);
+    } else {
+      document.fireEvent("on" + event.eventType, event);
+    }
+  }
+
   nodeName(elem, name) {
     return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
-  };
+  }
 
   evalScript(elem) {
     const data = (elem.text || elem.textContent || elem.innerHTML || elem.__html || "");
@@ -94,6 +114,7 @@ class ProjectorView extends Component {
 
   renderActiveApp(data, scope) {
     this.AppService.getAppView(data.app).then((json) => {
+      console.log(json);
       if (json && json.html) {
         scope.setState({
           component: json.html,
