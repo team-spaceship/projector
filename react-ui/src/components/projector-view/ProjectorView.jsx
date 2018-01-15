@@ -63,7 +63,11 @@ class ProjectorView extends Component {
     const head = document.getElementsByTagName("head")[0] || document.documentElement;
     const script = document.createElement("script");    
     
-    eval(data);
+    try {
+      eval(data);
+    } catch(error) {
+      console.log(error);
+    }
 
     setTimeout(function () {
       if (typeof init == "function") {
