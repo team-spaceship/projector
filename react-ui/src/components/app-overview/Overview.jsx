@@ -19,6 +19,8 @@ class Overview extends Component {
       loggedIn: false,
       activeAppId: null,
       user: {},
+      syncButtonDisabled: false,
+      triggerSyncText: "Trigger Sync",
     };
 
     this.searchApps = this.searchApps.bind(this);
@@ -65,7 +67,19 @@ class Overview extends Component {
 
   async triggerSync() {
     if (this.state.user) {
+      const oldSyncText = this.state.triggerSyncText;
+      
+      this.setState({
+        syncButtonDisabled: true,
+        triggerSyncText: "Syncing..",
+      });
+
       const synced_apps = await this.AppService.triggerSync(this.state.user._id);
+
+      this.setState({
+        syncButtonDisabled: false,
+        triggerSyncText: oldSyncText,
+      });
 
       // @TODO: show user syncing is complete?
       console.log(synced_apps);
@@ -90,8 +104,8 @@ class Overview extends Component {
   showProfile() {
     if (this.state.loggedIn) {
       return (
-        <button className="btn btn-sync" onClick={this.triggerSync} >
-          Trigger Sync
+        <button className="btn btn-sync" onClick={this.triggerSync} disabled={this.state.syncButtonDisabled}>
+          {this.state.triggerSyncText}
         </button>
       );
     } else {

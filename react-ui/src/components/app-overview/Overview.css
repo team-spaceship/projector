@@ -105,6 +105,7 @@
 .btn-sync {
     margin-top: 25px;
     float: right;
+    cursor: pointer;
 }
 
 .app--card .button {

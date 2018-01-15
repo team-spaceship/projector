@@ -11,6 +11,6 @@ const App = () => {
     </div>
     /* eslint-enable */
   );
-}
+};
 
 export default App;
