@@ -12,6 +12,6 @@ while True:
     GPIO.wait_for_edge(PIN, GPIO.FALLING, bouncetime = 200)
     if not GPIO.input(PIN): # workaround: wait_for_edge detects both edges
         try:
-            http.request('GET', 'http://localhost/v1/commands/next')
+            http.request('GET', 'http://localhost:3002/v1/commands/next')
         except:
             pass
