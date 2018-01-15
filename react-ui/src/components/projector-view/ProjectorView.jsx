@@ -18,7 +18,7 @@ class ProjectorView extends Component {
     this.renderActiveApp = this.renderActiveApp.bind(this);
     
     // Uncomment for test purpose
-    this.renderActiveApp({ app: "Snek" }, this);
+    // this.renderActiveApp({ app: "Snek" }, this);
   }
   
   componentDidMount() {
