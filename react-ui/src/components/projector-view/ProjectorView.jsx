@@ -18,7 +18,7 @@ class ProjectorView extends Component {
     this.renderActiveApp = this.renderActiveApp.bind(this);
     
     // Uncomment for test purpose
-    this.renderActiveApp({ app: "Snek" }, this);
+    // this.renderActiveApp({ app: "Snek" }, this);
   }
   
   componentDidMount() {
@@ -83,7 +83,11 @@ class ProjectorView extends Component {
     const head = document.getElementsByTagName("head")[0] || document.documentElement;
     const script = document.createElement("script");    
     
-    eval(data);
+    try {
+      eval(data);
+    } catch(error) {
+      console.log(error);
+    }
 
     setTimeout(function () {
       if (typeof init == "function") {
