@@ -30,7 +30,7 @@ class AppCard extends Component {
     return (
       <div key={app._id} className="app--card col-lg-3 col-md-6 col-sm-12">
         <div className="app--card-header"> 
-          <img className="app--card-image" src="https://picsum.photos/280/200/?random" alt="app-logo" />
+          <img className="app--card-image" src={latest_version.banner_path || "https://cdn.dribbble.com/users/380268/screenshots/1187493/timelapse-2.gif"} alt="app-logo" />
           <p className="app--card-description">
             {appDescription()}
           </p>
@@ -39,11 +39,18 @@ class AppCard extends Component {
         <div className="app--card-body">
           <h4>{app.version.app.name}</h4>
           {/* Is er een application type/category of iets in die richting? Die kan dan hier ingevuld worden. */}
-          <span className="app--card-type">Application Type</span>
+          <span className="app--card-type">
+            <a className="button-controls" href={'/app/' + latest_version.app._id + '/controls'}>
+              Controls
+            </a>
+            <br />
+            <br />
+          </span>
 
           <button className="button1" href="#" onClick={() => { this.props.onAppSelect(latest_version.app._id); }}>
             Settings
           </button>
+
           <button className="button" href="#" onClick={() => { this.props.setActiveApp(latest_version.app.name, latest_version.app._id); }}>
             { this.props.activeAppId === this.props.app._id ? "Activated" : "Activate" }
           </button>

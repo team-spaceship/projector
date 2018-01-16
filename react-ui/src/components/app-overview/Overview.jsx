@@ -53,8 +53,6 @@ class Overview extends Component {
       activeAppId: id,
     });
     this.WebsocketService.setActiveApp(name);
-
-    this.props.history.push('/app/' + id + '/controls');
   }
 
   async searchApps(query) {
