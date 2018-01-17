@@ -60,7 +60,6 @@ app.options('*', cors());
 
 SyncRoutes.create(app);
 SettingRoutes.create(app);
-CommandRoutes.create(app);
 
 app.get('/v1/view/:app', appProviderService.chooseApp);
 
@@ -68,6 +67,7 @@ const io = require('socket.io')(serv, {});
 // Create Websocket Server.
 serv.listen(process.env.WEBSOCKET_PORT);
 WebsocketServer.create(io);
+CommandRoutes.create(app, io);
 
 app.use(passport);
 

@@ -7,6 +7,7 @@ class ProjectorView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentAppName: '',
       component: "<h1 style='text-align: center; padding: 100px;'>Please select an app</h1>",
     };
 
@@ -19,6 +20,7 @@ class ProjectorView extends Component {
     
     // Uncomment for test purpose
     // this.renderActiveApp({ app: "Snek" }, this);
+    
   }
   
   componentDidMount() {
@@ -48,7 +50,34 @@ class ProjectorView extends Component {
         case 'enter':
           scope.triggerEvent('projectorOnEnterKey');
           break;
+        case 'nextApp':
+          scope.nextApp();
+          break;
       }
+    }
+  }
+
+  async nextApp() {
+    console.log("Rendering the next app.");
+    const installedApps = await this.AppService.getInstalledApps();
+
+    if (this.state.currentAppName && installedApps.length > 0) {
+      const activeApp = installedApps.filter((installedApp) => {
+        if (installedApp.version.app.name === this.state.currentAppName) {
+          return installedApp;
+        } 
+        return false;
+      });
+
+      const currentIndex = installedApps.indexOf(activeApp[0]);
+      const nextIndex = currentIndex + 1;
+      if (nextIndex < installedApps.length) {
+        this.renderActiveApp({ app: installedApps[nextIndex].version.app.name }, this);
+      } else {
+        this.renderActiveApp({ app: installedApps[0].version.app.name }, this);
+      }
+    } else {
+      this.renderActiveApp({ app: installedApps[0].version.app.name }, this);
     }
   }
 
@@ -113,6 +142,8 @@ class ProjectorView extends Component {
   }
 
   renderActiveApp(data, scope) {
+    console.log(data.app);
+
     this.AppService.getAppView(data.app).then((json) => {
       console.log(json);
       if (json && json.html) {
@@ -125,6 +156,9 @@ class ProjectorView extends Component {
         });
       }
     });
+    this.setState({
+      currentAppName: data.app,
+    });
   }
   
   render() {
@@ -136,8 +170,6 @@ class ProjectorView extends Component {
         this.evalScript(value.props.dangerouslySetInnerHTML);
       }
     });
-
-    console.log(this.state.component);
 
     if (this.state.component) {
       return (
