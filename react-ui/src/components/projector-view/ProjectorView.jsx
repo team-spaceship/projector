@@ -60,24 +60,25 @@ class ProjectorView extends Component {
   async nextApp() {
     console.log("Rendering the next app.");
     const installedApps = await this.AppService.getInstalledApps();
-
-    if (this.state.currentAppName && installedApps.length > 0) {
-      const activeApp = installedApps.filter((installedApp) => {
-        if (installedApp.version.app.name === this.state.currentAppName) {
-          return installedApp;
-        } 
-        return false;
-      });
-
-      const currentIndex = installedApps.indexOf(activeApp[0]);
-      const nextIndex = currentIndex + 1;
-      if (nextIndex < installedApps.length) {
-        this.renderActiveApp({ app: installedApps[nextIndex].version.app.name }, this);
+    if (installedApps) {
+      if (this.state.currentAppName && installedApps.length > 0) {
+        const activeApp = installedApps.filter((installedApp) => {
+          if (installedApp.version.app.name === this.state.currentAppName) {
+            return installedApp;
+          } 
+          return false;
+        });
+  
+        const currentIndex = installedApps.indexOf(activeApp[0]);
+        const nextIndex = currentIndex + 1;
+        if (nextIndex < installedApps.length) {
+          this.renderActiveApp({ app: installedApps[nextIndex].version.app.name }, this);
+        } else {
+          this.renderActiveApp({ app: installedApps[0].version.app.name }, this);
+        }
       } else {
         this.renderActiveApp({ app: installedApps[0].version.app.name }, this);
       }
-    } else {
-      this.renderActiveApp({ app: installedApps[0].version.app.name }, this);
     }
   }
 
