@@ -123,24 +123,13 @@ class ProjectorView extends Component {
     try {
       clearInterval(interval);
       clearInterval(klokinterval);
-      eval(`kaas = function() {
+      eval(`(function () {
         ${data}
-        init();
-      }
-      
-      setTimeout(function () {
-        if (typeof init == "function") {
-          kaas();
-        }
-      }, 100);`);
+      })();`);
     } catch(error) {
       console.log(error);
     }
-
-
-
-    /* eslint-enable */
-
+    
     script.type = "text/javascript";
     try {
       // doesn't work on ie...
