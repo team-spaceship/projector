@@ -20,7 +20,6 @@ class ProjectorView extends Component {
     
     // Uncomment for test purpose
     // this.renderActiveApp({ app: "Snek" }, this);
-    
   }
   
   componentDidMount() {
@@ -51,16 +50,24 @@ class ProjectorView extends Component {
           scope.triggerEvent('projectorOnEnterKey');
           break;
         case 'nextApp':
-          scope.nextApp();
+          scope.nextApp(command.user_id);
           break;
       }
     }
   }
 
-  async nextApp() {
+  async nextApp(user_id) {
     console.log("Rendering the next app.");
-    const installedApps = await this.AppService.getInstalledApps();
-    if (installedApps) {
+
+    let installedApps;
+
+    if (user_id) {
+      installedApps = await this.AppService.getInstalledApps(user_id);
+    } else {
+      installedApps = await this.AppService.getInstalledApps();
+    }
+    
+    if (installedApps && installedApps.length > 0) {
       if (this.state.currentAppName && installedApps.length > 0) {
         const activeApp = installedApps.filter((installedApp) => {
           if (installedApp.version.app.name === this.state.currentAppName) {
@@ -114,16 +121,23 @@ class ProjectorView extends Component {
     const script = document.createElement("script");    
     
     try {
-      eval(data);
+      clearInterval(interval);
+      clearInterval(klokinterval);
+      eval(`kaas = function() {
+        ${data}
+        init();
+      }
+      
+      setTimeout(function () {
+        if (typeof init == "function") {
+          kaas();
+        }
+      }, 100);`);
     } catch(error) {
       console.log(error);
     }
 
-    setTimeout(function () {
-      if (typeof init == "function") {
-        init();
-      }
-    }, 100);
+
 
     /* eslint-enable */
 
