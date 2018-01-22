@@ -24,7 +24,6 @@ ReactDOM.render(
         <Route path="/projector" component={ProjectorView} />
         <Route component={NoMatch} />
       </Switch>
-      <Background />
     </div>
   </Router>
 , document.getElementById('root')); 
