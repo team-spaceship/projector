@@ -40,7 +40,7 @@
 .app--card-header {
     height: 200px;
     position: relative;
-    background: #000;
+    background: white;
 }
 
 .app--card-image {
