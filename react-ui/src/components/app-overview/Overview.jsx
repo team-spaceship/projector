@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import AppService from '../../services/appService';
 import AppCard from '../app-card/AppCard';
-import SearchBar from '../search/SearchBar';
 import './Overview.css';
 import WebsocketService from '../../services/websocketService';
 import UserService from "../../services/userService";
@@ -135,9 +134,6 @@ class Overview extends Component {
           </p>
           <div className="col-md-5">
             {this.showProfile()}
-          </div>
-          <div className="app--overview-search col-md-12">
-            <SearchBar callBack={this.searchApps} />
           </div>
         </div>
         <div className="app--overview-content row">
