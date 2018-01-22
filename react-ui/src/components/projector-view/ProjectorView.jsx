@@ -57,10 +57,8 @@ class ProjectorView extends Component {
   }
 
   async nextApp(user_id) {
-    console.log("Rendering the next app.");
-
     let installedApps;
-
+    
     if (user_id) {
       installedApps = await this.AppService.getInstalledApps(user_id);
     } else {

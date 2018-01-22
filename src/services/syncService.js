@@ -39,7 +39,7 @@ const syncService = class SyncService {
       console.log("SyncService requires user_id");
       return { error: "user_id not found" };
     }
-
+    
     try {
       const apps = [];
       const local_apps = await this.getLocalApps();
