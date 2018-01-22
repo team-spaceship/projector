@@ -3,6 +3,8 @@ import renderHTML from 'react-render-html';
 import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
+window.interval = [];
+
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
@@ -122,7 +124,10 @@ class ProjectorView extends Component {
     const script = document.createElement("script");    
     
     try {
-      clearInterval(window.interval);
+      for (var i = 0; i < window.interval.length; i++) {
+        window.clearInterval(window.interval[i]);
+      }
+
       eval(`(function () {
         ${data}
       })();`);
@@ -167,6 +172,13 @@ class ProjectorView extends Component {
   
   render() {
     const html = renderHTML(this.state.component);
+
+    setTimeout(() => {
+      for (let i = 0; i < window.interval.length; i += 1) {
+        window.clearInterval(window.interval[i]);
+      }
+    }, 100);
+
 
     Object.entries(html).forEach(([key, value]) => {
       if (value && value.type === "script") {
