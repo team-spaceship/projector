@@ -43,6 +43,7 @@ class AppControl extends Component {
       <div>
         <div className="container">
           <button onClick={this.homepageRedirect}>Back</button>
+          <button onClick={() => this.onKeyDown('refresh')} >Refresh Projector View</button>
         </div>
         <div id="control-container">
           <button className="left--key" onClick={() => this.onKeyDown('left')} >Left</button>
