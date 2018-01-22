@@ -7,6 +7,7 @@ if (!process.env.MONGODB_URI) {
   console.error('No MONGODB_URI found.');
   process.exit(1);
 }
+
 if (!process.env.PORT) {
   console.error('No PORT found.');
   process.exit(1);

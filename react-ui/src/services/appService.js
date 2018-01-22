@@ -26,8 +26,8 @@ export default class AppService {
     });
   }  
 
-  getInstalledApps() {
-    return fetch(`${process.env.REACT_APP_STORE_API}/installed-apps`, {
+  getInstalledApps(user_id) {
+    return fetch(`${process.env.REACT_APP_STORE_API}/installed-apps?user_id=${user_id}`, {
       credentials: 'include',
       mode: 'cors',
     }).then((response) => {
