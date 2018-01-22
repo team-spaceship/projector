@@ -52,6 +52,9 @@ class ProjectorView extends Component {
         case 'nextApp':
           scope.nextApp(command.user_id);
           break;
+        case 'refresh':
+          window.location.reload();
+          break;
       }
     }
   }
