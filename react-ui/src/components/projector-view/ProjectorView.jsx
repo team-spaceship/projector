@@ -3,6 +3,10 @@ import renderHTML from 'react-render-html';
 import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
+/* eslint-disable */
+var interval, klokinterval;
+/* eslint-enable */
+
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
@@ -52,17 +56,18 @@ class ProjectorView extends Component {
         case 'nextApp':
           scope.nextApp(command.user_id);
           break;
+        case 'refresh':
+          window.location.reload();
+          break;
       }
     }
   }
 
   async nextApp(user_id) {
-    console.log("Rendering the next app.");
-
     let installedApps;
-
+    
     if (user_id) {
-      installedApps = await this.AppService.getInstalledApps(user_id);
+      installedApps = await this.AppService.getInstalledAppsUnsafe(user_id);
     } else {
       installedApps = await this.AppService.getInstalledApps();
     }
