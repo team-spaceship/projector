@@ -3,10 +3,6 @@ import renderHTML from 'react-render-html';
 import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
-/* eslint-disable */
-var window.interval;
-/* eslint-enable */
-
 class ProjectorView extends Component {
   constructor(props) {
     super(props);
