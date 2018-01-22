@@ -1,0 +1,8 @@
+#!/bin/bash
+killall chromium-browser
+killall node
+killall /usr/bin/python
+export DISPLAY=:0.0
+./start-lumos
+sleep 10
+./start-chromium
