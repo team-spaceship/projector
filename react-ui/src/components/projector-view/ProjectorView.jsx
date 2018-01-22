@@ -4,7 +4,7 @@ import AppService from '../../services/appService';
 import WebsocketService from '../../services/websocketService';
 
 /* eslint-disable */
-var interval, klokinterval;
+var window.interval;
 /* eslint-enable */
 
 class ProjectorView extends Component {
@@ -126,8 +126,7 @@ class ProjectorView extends Component {
     const script = document.createElement("script");    
     
     try {
-      clearInterval(interval);
-      clearInterval(klokinterval);
+      clearInterval(window.interval);
       eval(`(function () {
         ${data}
       })();`);
