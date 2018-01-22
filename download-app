@@ -17,5 +17,3 @@ dst=`echo $1 | grep -o ^[^/]*`
 rm -rf $dst
 mv $src $dst
 rm /tmp/$filename
-cd "$directory/react-ui/"
-yarn run build
