@@ -26,6 +26,7 @@ export default class AppService {
     });
   }  
 
+  // THIS REQUEST SHOULD BE ONLY POSSIBLE WHEN LOGGED IN.. @TODO
   getInstalledApps(user_id) {
     return fetch(`${process.env.REACT_APP_STORE_API}/installed-apps?user_id=${user_id}`, {
       credentials: 'include',
@@ -42,6 +43,23 @@ export default class AppService {
       console.error(error);
     });
   }  
+
+  // THIS REQUEST SHOULD BE ONLY POSSIBLE WHEN LOGGED IN.. @TODO
+  getInstalledAppsUnsafe(user_id) {
+    return fetch(`${process.env.REACT_APP_STORE_API}/installed-apps-unsafe?user_id=${user_id}`, {
+      mode: 'cors',
+    }).then((response) => {
+      return response.json();
+    }).then((json) => {
+      if (json.error === 404) {
+        console.error("No apps were found.");
+        return [];
+      }
+      return json;
+    }).catch((error) => {
+      console.error(error);
+    });
+  }    
 
   searchApps(query) {
     return fetch(`${process.env.REACT_APP_STORE_API}/apps?name=` + query).then((response) => {

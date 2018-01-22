@@ -67,7 +67,7 @@ class ProjectorView extends Component {
     let installedApps;
     
     if (user_id) {
-      installedApps = await this.AppService.getInstalledApps(user_id);
+      installedApps = await this.AppService.getInstalledAppsUnsafe(user_id);
     } else {
       installedApps = await this.AppService.getInstalledApps();
     }
