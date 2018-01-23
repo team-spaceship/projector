@@ -2,39 +2,88 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%) translateY(-50%);
     padding: 5px;
     text-align: center;
     font-size: 20px;
     border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.top-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.top-buttons button {
+    background: transparent;
+    color: #fff;
+    padding: 12px;
+    border-radius: 3px;
+    width: 49%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+button:hover {
+    background: #fff;
+    color: #000;
 }
 
 .left--key {
     position: relative;
-    top: 40px;
-    left: 60px;
+    background: transparent;
+    color: #fff;
+    padding: 12px;
+    border-radius: 3px;
+    width: 49%;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .right--key {
     position: relative;
-    top: 40px;
-    left: 110px;
+    background: transparent;
+    color: #fff;
+    padding: 12px;
+    border-radius: 3px;
+    width: 49%;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .down--key {
     position: relative;
-    top: 80px;
-    left: -52px;
+    background: transparent;
+    color: #fff;
+    padding: 12px;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .up--key {
     position: relative; 
-    top: 0px;
-    left: 40;
+    background: transparent;
+    color: #fff;
+    padding: 12px;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .enter--key {
     position: relative;
-    top: 40px;
-    left: -108px;
+    background: transparent;
+    color: #fff;
+    padding: 12px;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 40px;
+    cursor: pointer;
 }

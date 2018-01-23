@@ -41,16 +41,16 @@ class AppControl extends Component {
   render() {
     return (
       <div>
-        <div className="container">
+        <div className="container top-buttons">
           <button onClick={this.homepageRedirect}>Back</button>
           <button onClick={() => this.onKeyDown('refresh')} >Refresh Projector View</button>
         </div>
         <div id="control-container">
+          <button className="enter--key" onClick={() => this.onKeyDown('enter')} >OK</button>
+          <button className="up--key" onClick={() => this.onKeyDown('up')} >Up</button>
           <button className="left--key" onClick={() => this.onKeyDown('left')} >Left</button>
           <button className="right--key" onClick={() => this.onKeyDown('right')} >Right</button>
-          <button className="up--key" onClick={() => this.onKeyDown('up')} >Up</button>
           <button className="down--key" onClick={() => this.onKeyDown('down')} >Down</button>
-          <button className="enter--key" onClick={() => this.onKeyDown('enter')} >OK</button>
         </div>
       </div>
     );
